@@ -11,54 +11,55 @@ export const Dashboard = () => {
       let userId = user.sub;
       let roleFromAuth0 = await getRoles(userId);
       setRole(roleFromAuth0);
-      console.log(role.name);
+      console.log(role);
     } catch (error) {
       console.error(error);
     }
   };
 
+  // הנתונים מגיעים אך לא בקריאה הראשונה
   useEffect(() => {
     handleRole();
   }, []);
 
-  if (!role) {
+  if (role.length === 0) {
     return <h1>Loading...</h1>;
-  }
-
-  if (role.name === 'Owner') {
-    return (
-      <>
-        <h1>Owner</h1>
-        <button onClick={logout}>Logout</button>
-      </>
-    );
-  } else if (role.name === 'BusinessCompany') {
-    return (
-      <>
-        <h1>BusinessCompany</h1>
-        <button onClick={logout}>Logout</button>
-      </>
-    );
-  } else if (role.name === 'Non-profit') {
-    return (
-      <>
-        <h1>Non-profit</h1>
-        <button onClick={logout}>Logout</button>
-      </>
-    );
-  } else if (role.name === 'Social-Activist') {
-    return (
-      <>
-        <h1>Social-Activist</h1>
-        <button onClick={logout}>Logout</button>
-      </>
-    );
   } else {
-    return (
-      <>
-        <h1>User</h1>
-        <button onClick={logout}>Logout</button>
-      </>
-    );
+    if (role.find((role) => role.name === 'Owner')) {
+      return (
+        <>
+          <h1>Dashboard Owner</h1>
+          <button onClick={logout}>Logout</button>
+        </>
+      );
+    } else if (role.find((role) => role.name === 'BusinessCompany')) {
+      return (
+        <>
+          <h1>Dashboard BusinessCompany</h1>
+          <button onClick={logout}>Logout</button>
+        </>
+      );
+    } else if (role.find((role) => role.name === 'Non-profit')) {
+      return (
+        <>
+          <h1>Dashboard Non-profit</h1>
+          <button onClick={logout}>Logout</button>
+        </>
+      );
+    } else if (role.find((role) => role.name === 'Social-Activist')) {
+      return (
+        <>
+          <h1>Dashboard Social-Activist</h1>
+          <button onClick={logout}>Logout</button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <h1>Dashboard User</h1>
+          <button onClick={logout}>Logout</button>
+        </>
+      );
+    }
   }
 };
