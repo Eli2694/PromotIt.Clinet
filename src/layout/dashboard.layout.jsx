@@ -1,20 +1,33 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { RoleContext } from '../context/role.context';
 import { getRoles } from '../services/Auth0Roles.services';
+import { checkIfUserExistsInDB } from '../services/Users.services';
 
 export const Dashboard = () => {
   const { logout, user } = useAuth0();
-  const [role, setRole] = useState([]);
+  const { role, setRole } = useContext(RoleContext);
 
   const handleRole = async () => {
     try {
       let userId = user.sub;
       let roleFromAuth0 = await getRoles(userId);
       setRole(roleFromAuth0);
+      InsertUserToDB();
       console.log(roleFromAuth0);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const InsertUserToDB = () => {
+    let logInUser = {
+      FullName: user.name,
+      Email: user.email,
+      AssociationOwner: 0,
+    };
+    console.log(logInUser);
+    checkIfUserExistsInDB(logInUser);
   };
 
   useEffect(() => {

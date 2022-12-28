@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
       clientId='uXzYjcwOnrpfBMwAyu7TrabaEuYzbOOY'
       redirectUri={window.location.origin}
     >
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Auth0Provider>
   </React.StrictMode>
 );
