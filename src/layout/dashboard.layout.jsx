@@ -68,6 +68,9 @@ export const Dashboard = () => {
           <Link to='/campaignRegistration' className='link'>
             Register Campaign
           </Link>
+          <Link to='/personalCampaigns' className='link'>
+            Personal Campaigns
+          </Link>
           <button onClick={logout}>Logout</button>
         </>
       );

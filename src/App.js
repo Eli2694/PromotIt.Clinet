@@ -5,6 +5,7 @@ import './App.css';
 import { LoginPage } from './components/loginPage/loginPage.component';
 import { NonProfitAssociations } from './components/nonProfitAssociations/nonProfitAssociations.component';
 import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
+import { PersonalCampaigns } from './components/personalCampaigns/personalCampaigns.component';
 import { RegisterCampaign } from './components/registerCampaign/registerCampaign.component';
 import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
@@ -33,6 +34,10 @@ function App() {
               <Route
                 path='/campaignRegistration'
                 element={<RegisterCampaign></RegisterCampaign>}
+              ></Route>
+              <Route
+                path='/personalCampaigns'
+                element={<PersonalCampaigns></PersonalCampaigns>}
               ></Route>
               <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
             </Routes>

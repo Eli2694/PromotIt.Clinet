@@ -1,31 +1,29 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
-import { RegisCampaign } from '../../services/Campaigns.services';
-import './registerCampaign.style.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export const RegisterCampaign = () => {
+export const UpdateCampaign = () => {
   const [campaignName, setCampaignName] = useState();
   const [campaignWebsite, setCampaignWebsite] = useState();
   const [campaginHashtag, setCampaignHashtag] = useState();
-  const { user } = useAuth0();
-  const [FullName] = useState(user.name);
-  const [Email] = useState(user.email);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSubmitCampagin = (e) => {
-    e.preventDefault();
-    const campaign = {
+  const { CampaignID } = location.state;
+
+  const handleUpdate = async () => {
+    let cUpdate = {
       campaignName,
       campaignWebsite,
       campaginHashtag,
-      FullName,
-      Email,
+      CampaignID,
     };
-    RegisCampaign(campaign);
+    await UpdaCampaign(updateCampaign);
+    navigate('/personalCampaigns');
   };
   return (
     <div className='create'>
-      <h2>What Campaign Are You Creating?</h2>
-      <form onSubmit={handleSubmitCampagin}>
+      <h2>Update Campaign</h2>
+      <form onSubmit={handleUpdate}>
         <label>Campaign Name</label>
         <input
           type='text'
@@ -44,7 +42,7 @@ export const RegisterCampaign = () => {
           required
           onChange={(e) => setCampaignWebsite(e.target.value)}
         />
-        <button>Add Campaign</button>
+        <button>Update</button>
       </form>
     </div>
   );
