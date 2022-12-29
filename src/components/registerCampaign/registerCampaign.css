@@ -1,7 +1,7 @@
 * {
   margin: 0;
   font-family: 'Quicksand';
-  color: burlywood;
+  color: #333;
 }
 
 /* create new blog form */
@@ -19,7 +19,7 @@
 .create h2 {
   font-size: 20px;
   text-decoration: underline;
-  color: green;
+  color: rgb(22, 144, 181);
   margin-bottom: 30px;
   margin-top: 20px;
 }
@@ -34,7 +34,7 @@
 }
 
 .create button {
-  background: burlywood;
+  background: rgb(72, 81, 91);
   color: #fff;
   border: 0;
   padding: 8px;

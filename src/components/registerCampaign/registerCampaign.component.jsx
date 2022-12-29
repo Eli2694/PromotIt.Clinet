@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
+import { RegisCampaign } from '../../services/Campaigns.services';
 import './registerCampaign.css';
 
 export const RegisterCampaign = () => {
@@ -10,7 +11,7 @@ export const RegisterCampaign = () => {
   const [FullName] = useState(user.name);
   const [Email] = useState(user.email);
 
-  const handleSubmit = (e) => {
+  const handleSubmitCampagin = (e) => {
     e.preventDefault();
     const campaign = {
       campaignName,
@@ -19,12 +20,12 @@ export const RegisterCampaign = () => {
       FullName,
       Email,
     };
-    RegisterCampaign(campaign);
+    RegisCampaign(campaign);
   };
   return (
     <div className='create'>
       <h2>What Campaign Are You Creating?</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitCampagin}>
         <label>Campaign Name</label>
         <input
           type='text'
