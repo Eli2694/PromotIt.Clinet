@@ -1,7 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { LoginPage } from './components/loginPage/loginPage.component';
+import { NonProfitAssociations } from './components/nonProfitAssociations/nonProfitAssociations.component';
+import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
+import { RegisterCampaign } from './components/registerCampaign/registerCampaign.component';
 import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
 
@@ -21,6 +25,17 @@ function App() {
         <>
           <RoleContext.Provider value={{ role, setRole }}>
             <Dashboard></Dashboard>
+            <Routes>
+              <Route
+                path='/association'
+                element={<NonProfitAssociations></NonProfitAssociations>}
+              ></Route>
+              <Route
+                path='/campaignRegistration'
+                element={<RegisterCampaign></RegisterCampaign>}
+              ></Route>
+              <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
+            </Routes>
           </RoleContext.Provider>
         </>
       );

@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { RoleContext } from '../context/role.context';
 import { getRoles } from '../services/Auth0Roles.services';
 import { checkIfUserExistsInDB } from '../services/Users.services';
@@ -26,7 +27,7 @@ export const Dashboard = () => {
       Email: user.email,
       AssociationOwner: 0,
     };
-    console.log(logInUser);
+
     checkIfUserExistsInDB(logInUser);
   };
 
@@ -41,20 +42,32 @@ export const Dashboard = () => {
       return (
         <>
           <h1>Dashboard Owner</h1>
+          <Link to='/association' className='link'>
+            Register Association
+          </Link>
+          <Link to='/campaignRegistration' className='link'>
+            Register Campaign
+          </Link>
           <button onClick={logout}>Logout</button>
         </>
       );
-    } else if (role.find((role) => role.name === 'BusinessCompany')) {
+    } else if (role.find((role) => role.name === 'BusinessRepresentative')) {
       return (
         <>
-          <h1>Dashboard BusinessCompany</h1>
+          <h1>Dashboard BusinessRepresentative</h1>
           <button onClick={logout}>Logout</button>
         </>
       );
-    } else if (role.find((role) => role.name === 'NonProfit')) {
+    } else if (role.find((role) => role.name === 'NonProfitRepresentative')) {
       return (
         <>
-          <h1>Dashboard Non-profit</h1>
+          <h1>Dashboard NonProfitRepresentative</h1>
+          <Link to='/association' className='link'>
+            Register Association
+          </Link>
+          <Link to='/campaignRegistration' className='link'>
+            Register Campaign
+          </Link>
           <button onClick={logout}>Logout</button>
         </>
       );
