@@ -26,10 +26,11 @@ export const getPersonalCampaigns = async (Email) => {
   }
 };
 
-export const delCampaign = async (website) => {
+export const delCampaign = async (ID) => {
   try {
-    let endpoint = `${campaignApi}DELETE/${website}`;
+    let endpoint = `${campaignApi}DELETE/${ID}`;
     await axios.delete(endpoint);
+    alert('campagin successfully deleted');
   } catch (error) {
     console.error(error);
   }
@@ -48,6 +49,7 @@ export const getCampaignID = async (website) => {
 export const UpdaCampaign = async (UpdatedCampaign) => {
   try {
     await axios.post(`${campaignApi}Update`, UpdatedCampaign);
+    alert('campagin successfully updated');
   } catch (error) {
     console.error(error);
   }

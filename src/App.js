@@ -7,8 +7,10 @@ import { NonProfitAssociations } from './components/nonProfitAssociations/nonPro
 import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
 import { PersonalCampaigns } from './components/personalCampaigns/personalCampaigns.component';
 import { RegisterCampaign } from './components/registerCampaign/registerCampaign.component';
+import { UpdateCampaign } from './components/updateCampaign/updateCampaign.component';
 import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
+import { UpdaCampaign } from './services/Campaigns.services';
 
 function App() {
   const [role, setRole] = useState([]);
@@ -38,6 +40,10 @@ function App() {
               <Route
                 path='/personalCampaigns'
                 element={<PersonalCampaigns></PersonalCampaigns>}
+              ></Route>
+              <Route
+                path='/updateCampaign'
+                element={<UpdateCampaign></UpdateCampaign>}
               ></Route>
               <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
             </Routes>

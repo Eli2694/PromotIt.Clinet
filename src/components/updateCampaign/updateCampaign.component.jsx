@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UpdaCampaign } from '../../services/Campaigns.services';
 
 export const UpdateCampaign = () => {
   const [campaignName, setCampaignName] = useState();
@@ -8,16 +9,17 @@ export const UpdateCampaign = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { CampaignID } = location.state;
+  const { CampaignId } = location.state ? location.state : { CampaignId: null };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     let cUpdate = {
       campaignName,
       campaignWebsite,
       campaginHashtag,
-      CampaignID,
+      CampaignId,
     };
-    await UpdaCampaign(updateCampaign);
+    await UpdaCampaign(cUpdate);
     navigate('/personalCampaigns');
   };
   return (
@@ -43,6 +45,7 @@ export const UpdateCampaign = () => {
           onChange={(e) => setCampaignWebsite(e.target.value)}
         />
         <button>Update</button>
+        <button onClick={() => navigate(-1)}>Go Back</button>
       </form>
     </div>
   );

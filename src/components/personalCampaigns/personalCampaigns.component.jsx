@@ -1,9 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import {
   delCampaign,
-  getCampaignID,
   getPersonalCampaigns,
 } from '../../services/Campaigns.services';
 import { PersonalCampRowDisplay } from '../personalCampRowDisplay/personalCampRowDisplay.component';
@@ -11,25 +11,27 @@ import { PersonalCampRowDisplay } from '../personalCampRowDisplay/personalCampRo
 export const PersonalCampaigns = () => {
   const [campaigns, setCampaings] = useState([]);
   const navigate = useNavigate();
+  const { user } = useAuth0();
+  const [Email] = useState(user.email);
 
-  const updateCampaign = async (campaignWebsite) => {
-    let CampaignOjc = await getCampaignID(campaignWebsite);
-    let CampaignID = CampaignOjc.CampaignID;
+  const updateCampaign = async (CampaignId) => {
+    //let CampaignOjc = await getCampaignID(campaignWebsite);
+    //let CampaignID = CampaignOjc.CampaignID;
     navigate('/updateCampaign', {
       state: {
-        CampaignID,
+        CampaignId,
       },
     });
   };
 
-  const deleteCampaign = async (campaignWebsite) => {
-    await delCampaign(campaignWebsite);
+  const deleteCampaign = async (CampaignId) => {
+    await delCampaign(CampaignId);
+    await ListOfPersonalCampaigns();
   };
 
-  const ListOfPersonalCampaigns = async (ProductId) => {
-    let PersCampaigns = await getPersonalCampaigns(ProductId);
-    let PersCampaignsArr = Object.values(PersCampaigns);
-    setCampaings(PersCampaignsArr);
+  const ListOfPersonalCampaigns = async () => {
+    let PersCampaigns = await getPersonalCampaigns(Email);
+    setCampaings(PersCampaigns);
   };
 
   useEffect(() => {
@@ -52,15 +54,19 @@ export const PersonalCampaigns = () => {
         <tbody>
           {campaigns &&
             campaigns.map((campaigns) => {
-              const { campaignName, campaignWebsite, campaginHashtag } =
-                campaigns;
+              const {
+                campaignName,
+                campaignWebsite,
+                campaginHashtag,
+                CampaignId,
+              } = campaigns;
               return (
                 <PersonalCampRowDisplay
                   name={campaignName}
                   website={campaignWebsite}
                   hashtag={campaginHashtag}
-                  handleUpdate={() => updateCampaign(campaignWebsite)}
-                  handleDelete={() => deleteCampaign(campaignWebsite)}
+                  handleUpdate={() => updateCampaign(parseInt(CampaignId))}
+                  handleDelete={() => deleteCampaign(CampaignId)}
                 ></PersonalCampRowDisplay>
               );
             })}
