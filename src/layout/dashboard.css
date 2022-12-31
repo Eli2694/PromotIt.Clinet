@@ -1,0 +1,18 @@
+.dashboard {
+  display: flex;
+  color: white;
+  background-color: purple;
+  justify-content: space-around;
+}
+
+.link {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  text-decoration: wavy;
+}
+
+.link:hover {
+  color: orange;
+}

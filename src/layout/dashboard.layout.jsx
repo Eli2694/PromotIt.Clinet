@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { RoleContext } from '../context/role.context';
 import { getRoles } from '../services/Auth0Roles.services';
 import { checkIfUserExistsInDB } from '../services/Users.services';
+import './dashboard.css';
 
 export const Dashboard = () => {
   const { logout, user } = useAuth0();
@@ -48,20 +49,33 @@ export const Dashboard = () => {
           <Link to='/campaignRegistration' className='link'>
             Register Campaign
           </Link>
-          <button onClick={logout}>Logout</button>
+          <Link
+            onClick={() => logout({ returnTo: window.location.origin })}
+            to='/'
+            className='link'
+          >
+            Logout
+          </Link>
         </>
       );
     } else if (role.find((role) => role.name === 'BusinessRepresentative')) {
       return (
-        <>
-          <h1>Dashboard BusinessRepresentative</h1>
-          <button onClick={logout}>Logout</button>
-        </>
+        <div className='dashboard'>
+          <Link to='/AllCampaignsForBusiness' className='link'>
+            List Of Campaigns
+          </Link>
+          <Link
+            onClick={() => logout({ returnTo: window.location.origin })}
+            to='/'
+            className='link'
+          >
+            Logout
+          </Link>
+        </div>
       );
     } else if (role.find((role) => role.name === 'NonProfitRepresentative')) {
       return (
-        <>
-          <h1>Dashboard NonProfitRepresentative</h1>
+        <div className='dashboard'>
           <Link to='/association' className='link'>
             Register Association
           </Link>
@@ -71,21 +85,39 @@ export const Dashboard = () => {
           <Link to='/personalCampaigns' className='link'>
             Personal Campaigns
           </Link>
-          <button onClick={logout}>Logout</button>
-        </>
+          <Link
+            onClick={() => logout({ returnTo: window.location.origin })}
+            to='/'
+            className='link'
+          >
+            Logout
+          </Link>
+        </div>
       );
     } else if (role.find((role) => role.name === 'SocialActivist')) {
       return (
         <>
           <h1>Dashboard Social-Activist</h1>
-          <button onClick={logout}>Logout</button>
+          <Link
+            onClick={() => logout({ returnTo: window.location.origin })}
+            to='/'
+            className='link'
+          >
+            Logout
+          </Link>
         </>
       );
     } else {
       return (
         <>
           <h1>Dashboard User</h1>
-          <button onClick={logout}>Logout</button>
+          <Link
+            onClick={() => logout({ returnTo: window.location.origin })}
+            to='/'
+            className='link'
+          >
+            Logout
+          </Link>
         </>
       );
     }

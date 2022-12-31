@@ -2,15 +2,18 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { BusinessCampaigns } from './components/businessCampaigns/businessCampaigns.component';
+import { CampaignProductsForBusinessRep } from './components/campaignProductsForBusinessRep/campaignProductsForBusinessRep.component';
+import { DonateProducts } from './components/donateProducts/donateProducts.component';
 import { LoginPage } from './components/loginPage/loginPage.component';
 import { NonProfitAssociations } from './components/nonProfitAssociations/nonProfitAssociations.component';
 import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
 import { PersonalCampaigns } from './components/personalCampaigns/personalCampaigns.component';
 import { RegisterCampaign } from './components/registerCampaign/registerCampaign.component';
 import { UpdateCampaign } from './components/updateCampaign/updateCampaign.component';
+import { UpdateProduct } from './components/updateProduct/updateProduct.component';
 import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
-import { UpdaCampaign } from './services/Campaigns.services';
 
 function App() {
   const [role, setRole] = useState([]);
@@ -44,6 +47,24 @@ function App() {
               <Route
                 path='/updateCampaign'
                 element={<UpdateCampaign></UpdateCampaign>}
+              ></Route>
+              <Route
+                path='/AllCampaignsForBusiness'
+                element={<BusinessCampaigns></BusinessCampaigns>}
+              ></Route>
+              <Route
+                path='/DonateProduct'
+                element={<DonateProducts></DonateProducts>}
+              ></Route>
+              <Route
+                path='/BusinessRepProducts'
+                element={
+                  <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
+                }
+              ></Route>
+              <Route
+                path='/updateProduct'
+                element={<UpdateProduct></UpdateProduct>}
               ></Route>
               <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
             </Routes>

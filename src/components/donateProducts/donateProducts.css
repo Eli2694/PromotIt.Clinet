@@ -1,43 +1,44 @@
 * {
   margin: 0;
   font-family: 'Quicksand';
-  color: #333;
+  color: rgb(231, 172, 89);
 }
 
 /* create new blog form */
-.register {
+.donate {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
 
-.register label {
+.donate label {
   text-align: left;
   display: block;
 }
 
-.register h2 {
+.donate h2 {
   font-size: 20px;
   text-decoration: underline;
-  color: rgb(22, 144, 181);
+  color: rgb(231, 172, 89);
   margin-bottom: 30px;
   margin-top: 20px;
 }
 
-.register input {
+.donate input {
   width: 100%;
   padding: 6px 10px;
   margin: 10px 0;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(231, 172, 89);
   box-sizing: border-box;
   display: block;
 }
 
-.register button {
-  background: rgb(72, 81, 91);
+.donate button {
+  background: rgb(231, 172, 89);
   color: #fff;
   border: 0;
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
+  margin: 5px;
 }

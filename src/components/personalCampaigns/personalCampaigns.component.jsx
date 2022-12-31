@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { RoleContext } from '../../context/role.context';
 import {
   delCampaign,
   getPersonalCampaigns,
@@ -13,13 +14,23 @@ export const PersonalCampaigns = () => {
   const navigate = useNavigate();
   const { user } = useAuth0();
   const [Email] = useState(user.email);
+  const { role } = useContext(RoleContext);
 
-  const updateCampaign = async (CampaignId) => {
-    //let CampaignOjc = await getCampaignID(campaignWebsite);
-    //let CampaignID = CampaignOjc.CampaignID;
+  const updateCampaign = (
+    CampaignId,
+    campaignName,
+    campaignWebsite,
+    campaginHashtag
+  ) => {
+    let campaignInfo = {
+      campaignName,
+      campaignWebsite,
+      campaginHashtag,
+    };
     navigate('/updateCampaign', {
       state: {
         CampaignId,
+        campaignInfo,
       },
     });
   };
@@ -38,40 +49,53 @@ export const PersonalCampaigns = () => {
     ListOfPersonalCampaigns();
   }, []);
 
-  return (
-    <>
-      <h1>Personal Campaigns</h1>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Campaign Name</th>
-            <th>Campaign Website</th>
-            <th>Campaign Hashtag</th>
-            <th>Update Campaign</th>
-            <th>Delete Campaign</th>
-          </tr>
-        </thead>
-        <tbody>
-          {campaigns &&
-            campaigns.map((campaigns) => {
-              const {
-                campaignName,
-                campaignWebsite,
-                campaginHashtag,
-                CampaignId,
-              } = campaigns;
-              return (
-                <PersonalCampRowDisplay
-                  name={campaignName}
-                  website={campaignWebsite}
-                  hashtag={campaginHashtag}
-                  handleUpdate={() => updateCampaign(parseInt(CampaignId))}
-                  handleDelete={() => deleteCampaign(CampaignId)}
-                ></PersonalCampRowDisplay>
-              );
-            })}
-        </tbody>
-      </Table>
-    </>
-  );
+  if (role.find((role) => role.name === 'NonProfitRepresentative')) {
+    return (
+      <>
+        <h1>Personal Campaigns</h1>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Campaign Name</th>
+              <th>Campaign Website</th>
+              <th>Campaign Hashtag</th>
+              <th>Update Campaign</th>
+              <th>Delete Campaign</th>
+            </tr>
+          </thead>
+          <tbody>
+            {campaigns &&
+              campaigns.map((campaigns) => {
+                const {
+                  campaignName,
+                  campaignWebsite,
+                  campaginHashtag,
+                  CampaignId,
+                } = campaigns;
+                const urlObject = new URL(campaignWebsite);
+                const websiteName = urlObject.hostname;
+                return (
+                  <PersonalCampRowDisplay
+                    name={campaignName}
+                    website={websiteName}
+                    hashtag={campaginHashtag}
+                    handleUpdate={() =>
+                      updateCampaign(
+                        parseInt(CampaignId),
+                        campaignName,
+                        campaignWebsite,
+                        campaginHashtag
+                      )
+                    }
+                    handleDelete={() => deleteCampaign(CampaignId)}
+                  ></PersonalCampRowDisplay>
+                );
+              })}
+          </tbody>
+        </Table>
+      </>
+    );
+  } else {
+    <h1>User Not Authorized To Perform This Action</h1>;
+  }
 };
