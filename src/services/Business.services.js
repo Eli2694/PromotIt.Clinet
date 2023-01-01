@@ -5,7 +5,6 @@ export const GetCampaignsListForBusiness = async () => {
   try {
     let results = await fetch(`${businessApi}GET`);
     let campaigns = await results.json();
-    console.log(campaigns);
     return campaigns;
   } catch (error) {
     console.error(error);
@@ -14,9 +13,7 @@ export const GetCampaignsListForBusiness = async () => {
 
 export const Donate = async (product) => {
   try {
-    console.log(product);
     await axios.post(`${businessApi}Donate`, product);
-
     alert('product successfully donated');
   } catch (error) {
     console.error(error);
@@ -43,10 +40,11 @@ export const delProduct = async (campaignId, productName) => {
   }
 };
 
-export const getProductId = async (campaginId, productName) => {
+export const getProductId = async (CampaignId, productName) => {
+  console.log('Getting product);', CampaignId, productName);
   try {
     let results = await fetch(
-      `${businessApi}GETPRODUCTID/${campaginId}/${productName}`
+      `${businessApi}GETPRODUCTID/${CampaignId}/${productName}`
     );
     let productID = await results.json();
     console.log(productID);
@@ -57,6 +55,7 @@ export const getProductId = async (campaginId, productName) => {
 };
 
 export const UpdProduct = async (product) => {
+  console.log(product);
   try {
     await axios.post(`${businessApi}Update`, product);
     alert('product successfully updated');

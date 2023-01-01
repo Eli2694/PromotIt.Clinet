@@ -1,43 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ProductIdContext } from '../../context/productID.context';
 import { RoleContext } from '../../context/role.context';
-import { getProductId, UpdProduct } from '../../services/Business.services';
+import { UpdProduct } from '../../services/Business.services';
 import './updateProduct.css';
 
 export const UpdateProduct = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { role } = useContext(RoleContext);
-  const [name, setName] = useState();
-  const [price, setPrice] = useState();
-  const [stock, setStock] = useState();
-  const [productId, setProductId] = useState();
+  const [productName, setProductName] = useState('');
+  const [unitPrice, setUnitPrice] = useState('');
+  const [unitsInStock, setUnitsInStock] = useState('');
+  const { productId } = useContext(ProductIdContext);
 
-  const { CampaignId, productName, productInfo } = location.state
+  const { productInfo } = location.state
     ? location.state
-    : { productInfo: null, CampaignId: null, productName: null };
+    : { productInfo: null };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     let pUpdate = {
-      name,
-      price,
-      stock,
+      productName,
+      unitPrice,
+      unitsInStock,
       productId,
     };
     await UpdProduct(pUpdate);
-    navigate('/BusinessRepProducts');
+    navigate('/AllCampaignsForBusiness');
   };
-
-  const productIdFromDB = async () => {
-    let id = await getProductId(CampaignId, productName);
-    setProductId(id);
-  };
-
-  useEffect(() => {
-    productIdFromDB();
-  }, []);
 
   if (role.find((role) => role.name === 'BusinessRepresentative')) {
     return (
@@ -66,19 +58,21 @@ export const UpdateProduct = () => {
             <input
               type='text'
               required
-              onChange={(e) => setName(e.target.value.replace(/'/g, ''))}
+              onChange={(e) => setProductName(e.target.value.replace(/'/g, ''))}
             />
             <label>Unit Price</label>
             <input
               type='text'
               required
-              onChange={(e) => setPrice(e.target.value.replace(/'/g, ''))}
+              onChange={(e) => setUnitPrice(e.target.value.replace(/'/g, ''))}
             />
             <label>Units In Stock</label>
             <input
               type='text'
               required
-              onChange={(e) => setStock(e.target.value.replace(/'/g, ''))}
+              onChange={(e) =>
+                setUnitsInStock(e.target.value.replace(/'/g, ''))
+              }
             />
             <button>Update</button>
             <button onClick={() => navigate(-1)}>Go Back</button>

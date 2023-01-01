@@ -12,11 +12,13 @@ import { PersonalCampaigns } from './components/personalCampaigns/personalCampai
 import { RegisterCampaign } from './components/registerCampaign/registerCampaign.component';
 import { UpdateCampaign } from './components/updateCampaign/updateCampaign.component';
 import { UpdateProduct } from './components/updateProduct/updateProduct.component';
+import { ProductIdContext } from './context/productID.context';
 import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
 
 function App() {
   const [role, setRole] = useState([]);
+  const [productId, setProductId] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
   if (isLoading) {
     return (
@@ -30,44 +32,46 @@ function App() {
       return (
         <>
           <RoleContext.Provider value={{ role, setRole }}>
-            <Dashboard></Dashboard>
-            <Routes>
-              <Route
-                path='/association'
-                element={<NonProfitAssociations></NonProfitAssociations>}
-              ></Route>
-              <Route
-                path='/campaignRegistration'
-                element={<RegisterCampaign></RegisterCampaign>}
-              ></Route>
-              <Route
-                path='/personalCampaigns'
-                element={<PersonalCampaigns></PersonalCampaigns>}
-              ></Route>
-              <Route
-                path='/updateCampaign'
-                element={<UpdateCampaign></UpdateCampaign>}
-              ></Route>
-              <Route
-                path='/AllCampaignsForBusiness'
-                element={<BusinessCampaigns></BusinessCampaigns>}
-              ></Route>
-              <Route
-                path='/DonateProduct'
-                element={<DonateProducts></DonateProducts>}
-              ></Route>
-              <Route
-                path='/BusinessRepProducts'
-                element={
-                  <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
-                }
-              ></Route>
-              <Route
-                path='/updateProduct'
-                element={<UpdateProduct></UpdateProduct>}
-              ></Route>
-              <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
-            </Routes>
+            <ProductIdContext.Provider value={{ productId, setProductId }}>
+              <Dashboard></Dashboard>
+              <Routes>
+                <Route
+                  path='/association'
+                  element={<NonProfitAssociations></NonProfitAssociations>}
+                ></Route>
+                <Route
+                  path='/campaignRegistration'
+                  element={<RegisterCampaign></RegisterCampaign>}
+                ></Route>
+                <Route
+                  path='/personalCampaigns'
+                  element={<PersonalCampaigns></PersonalCampaigns>}
+                ></Route>
+                <Route
+                  path='/updateCampaign'
+                  element={<UpdateCampaign></UpdateCampaign>}
+                ></Route>
+                <Route
+                  path='/AllCampaignsForBusiness'
+                  element={<BusinessCampaigns></BusinessCampaigns>}
+                ></Route>
+                <Route
+                  path='/DonateProduct'
+                  element={<DonateProducts></DonateProducts>}
+                ></Route>
+                <Route
+                  path='/BusinessRepProducts'
+                  element={
+                    <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
+                  }
+                ></Route>
+                <Route
+                  path='/updateProduct'
+                  element={<UpdateProduct></UpdateProduct>}
+                ></Route>
+                <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
+              </Routes>
+            </ProductIdContext.Provider>
           </RoleContext.Provider>
         </>
       );

@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ProductIdContext } from '../../context/productID.context';
 import { RoleContext } from '../../context/role.context';
 import {
   delProduct,
   getCampaignProducts,
+  getProductId,
 } from '../../services/Business.services';
 import './campaignProductsForBusinessRep.css';
 
@@ -13,13 +15,12 @@ export const CampaignProductsForBusinessRep = () => {
   const location = useLocation();
   const { role } = useContext(RoleContext);
   const [listOfProducts, setListOfProducts] = useState([]);
+  const { setProductId } = useContext(ProductIdContext);
 
   const { CampaignId } = location.state ? location.state : { CampaignId: null };
 
   const CampaignProducts = async () => {
-    console.log(CampaignId);
     let cProducts = await getCampaignProducts(CampaignId);
-    console.log(cProducts);
     setListOfProducts(cProducts);
   };
 
@@ -33,6 +34,7 @@ export const CampaignProductsForBusinessRep = () => {
     unitPrice,
     unitsInStock
   ) => {
+    productIdFromDB(CampaignId, productName);
     let productInfo = {
       productName,
       unitPrice,
@@ -44,6 +46,12 @@ export const CampaignProductsForBusinessRep = () => {
         productInfo,
       },
     });
+  };
+
+  const productIdFromDB = async (CampaignId, productName) => {
+    let id = await getProductId(CampaignId, productName);
+    console.log(id);
+    setProductId(id);
   };
 
   const handleProductDelete = async (CampaignId, productName) => {
