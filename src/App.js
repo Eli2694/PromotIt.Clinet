@@ -5,6 +5,7 @@ import './App.css';
 import { BusinessCampaigns } from './components/businessCampaigns/businessCampaigns.component';
 import { CampaignProductsForBusinessRep } from './components/campaignProductsForBusinessRep/campaignProductsForBusinessRep.component';
 import { DonateProducts } from './components/donateProducts/donateProducts.component';
+import { HomePage } from './components/homePage/homePage.component';
 import { LoginPage } from './components/loginPage/loginPage.component';
 import { NonProfitAssociations } from './components/nonProfitAssociations/nonProfitAssociations.component';
 import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
@@ -35,6 +36,7 @@ function App() {
             <ProductIdContext.Provider value={{ productId, setProductId }}>
               <Dashboard></Dashboard>
               <Routes>
+                <Route path='/' element={<HomePage></HomePage>}></Route>
                 <Route
                   path='/association'
                   element={<NonProfitAssociations></NonProfitAssociations>}
