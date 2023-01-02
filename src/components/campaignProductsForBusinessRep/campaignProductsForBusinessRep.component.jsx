@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -16,11 +17,13 @@ export const CampaignProductsForBusinessRep = () => {
   const { role } = useContext(RoleContext);
   const [listOfProducts, setListOfProducts] = useState([]);
   const { setProductId } = useContext(ProductIdContext);
+  const { user } = useAuth0();
 
   const { CampaignId } = location.state ? location.state : { CampaignId: null };
 
   const CampaignProducts = async () => {
-    let cProducts = await getCampaignProducts(CampaignId);
+    let Email = user.email;
+    let cProducts = await getCampaignProducts(CampaignId, Email);
     setListOfProducts(cProducts);
   };
 

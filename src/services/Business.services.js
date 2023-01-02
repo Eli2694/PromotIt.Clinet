@@ -20,10 +20,22 @@ export const Donate = async (product) => {
   }
 };
 
-export const getCampaignProducts = async (ID) => {
+export const getCampaignProducts = async (ID, Email) => {
   try {
-    let results = await fetch(`${businessApi}GETPRODUCTS/${ID}`);
+    let results = await fetch(`${businessApi}GETPRODUCTS/${ID}/${Email}`);
     let products = await results.json();
+    console.log(products);
+    return products;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCProducts = async (ID) => {
+  try {
+    let results = await fetch(`${businessApi}PRODUCTS/${ID}`);
+    let products = await results.json();
+    console.log(products);
     return products;
   } catch (error) {
     console.error(error);

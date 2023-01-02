@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RoleContext } from '../../context/role.context';
@@ -11,16 +12,19 @@ export const DonateProducts = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { role } = useContext(RoleContext);
+  const { user } = useAuth0();
 
   const { CampaignId } = location.state ? location.state : { CampaignId: null };
 
   const handleDonate = async (e) => {
     e.preventDefault();
+    let Email = user.email;
     let product = {
       productName,
       unitPrice,
       unitsInStock,
       CampaignId,
+      Email,
     };
     await Donate(product);
     navigate('/AllCampaignsForBusiness');

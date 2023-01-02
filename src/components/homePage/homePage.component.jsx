@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductsListContext } from '../../context/listOfProducts';
-import { getCampaignProducts } from '../../services/Business.services';
+import { getCProducts } from '../../services/Business.services';
 import { getFullListOfCampaigns } from '../../services/Users.services';
 import { HomePageRow } from '../homePageRow/homePageRow.components';
 
@@ -12,7 +12,7 @@ export const HomePage = () => {
   const navigate = useNavigate();
 
   const handleCampaignProducts = async (CampaignId) => {
-    let campaignProducts = await getCampaignProducts(CampaignId);
+    let campaignProducts = await getCProducts(CampaignId);
     setProductsList(campaignProducts);
     navigate('/usersProducts');
   };
