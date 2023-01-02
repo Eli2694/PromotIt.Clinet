@@ -77,7 +77,9 @@ export const UpdateCampaign = () => {
               }
             />
             <button>Update</button>
-            <button onClick={() => navigate(-1)}>Go Back</button>
+            <button onClick={() => navigate('/personalCampaigns')}>
+              Go Back
+            </button>
           </form>
         </div>
       </>

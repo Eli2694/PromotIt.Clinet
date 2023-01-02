@@ -16,7 +16,6 @@ export const Dashboard = () => {
       let roleFromAuth0 = await getRoles(userId);
       setRole(roleFromAuth0);
       InsertUserToDB();
-      console.log(roleFromAuth0);
     } catch (error) {
       console.error(error);
     }

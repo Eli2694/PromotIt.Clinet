@@ -41,13 +41,12 @@ export const delProduct = async (campaignId, productName) => {
 };
 
 export const getProductId = async (CampaignId, productName) => {
-  console.log('Getting product);', CampaignId, productName);
   try {
     let results = await fetch(
       `${businessApi}GETPRODUCTID/${CampaignId}/${productName}`
     );
     let productID = await results.json();
-    console.log(productID);
+
     return productID;
   } catch (error) {
     console.error(error);

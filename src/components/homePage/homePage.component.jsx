@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { ProductsListContext } from '../../context/listOfProducts';
+import { getCampaignProducts } from '../../services/Business.services';
 import { getFullListOfCampaigns } from '../../services/Users.services';
 import { HomePageRow } from '../homePageRow/homePageRow.components';
 
 export const HomePage = () => {
   const [campaigns, setCampaigns] = useState([]);
+  const { setProductsList } = useContext(ProductsListContext);
+  const navigate = useNavigate();
 
-  const handdleCampaignProducts = (campaigId) => {};
+  const handleCampaignProducts = async (CampaignId) => {
+    let campaignProducts = await getCampaignProducts(CampaignId);
+    setProductsList(campaignProducts);
+    navigate('/usersProducts');
+  };
 
   const FullInfoAboutCampaigns = async () => {
     let Campaigns = await getFullListOfCampaigns();
-    console.log(Campaigns);
     setCampaigns(Campaigns);
   };
 
@@ -54,7 +62,7 @@ export const HomePage = () => {
                   campaignName={campaignName}
                   campaignWebsite={cWebsite}
                   campaginHashtag={campaginHashtag}
-                  handleProductsList={() => handdleCampaignProducts(CampaignId)}
+                  handleProductsList={() => handleCampaignProducts(CampaignId)}
                 ></HomePageRow>
               );
             })}

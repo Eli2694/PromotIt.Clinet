@@ -52,7 +52,9 @@ export const DonateProducts = () => {
             onChange={(e) => setUnitsInStock(e.target.value)}
           />
           <button>Donate</button>
-          <button onClick={() => navigate(-1)}>Go Back</button>
+          <button onClick={() => navigate('/AllCampaignsForBusiness')}>
+            Go Back
+          </button>
         </form>
       </div>
     );
