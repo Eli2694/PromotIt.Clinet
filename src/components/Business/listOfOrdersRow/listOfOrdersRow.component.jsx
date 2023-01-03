@@ -10,10 +10,12 @@ export const ListOfOrdersRow = ({
   productName,
   price,
   stock,
+  date,
   handleConfirm,
 }) => {
   return (
     <tr>
+      <td>{date}</td>
       <td>{country}</td>
       <td>{city}</td>
       <td>{address}</td>

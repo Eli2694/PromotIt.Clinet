@@ -1,12 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ProductIdContext } from '../../context/productID.context';
+import { ProductIdContext } from '../../../context/productID.context';
 import {
   decreaseUnitsInStockByOne,
   getUserID,
   postOrderInfo,
-} from '../../services/Users.services';
+} from '../../../services/Users.services';
 import './buyerForm.css';
 
 export const BuyerForm = () => {

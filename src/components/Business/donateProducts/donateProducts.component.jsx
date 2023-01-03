@@ -1,8 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RoleContext } from '../../context/role.context';
-import { Donate } from '../../services/Business.services';
+import { RoleContext } from '../../../context/role.context';
+import { Donate } from '../../../services/Business.services';
 import './donateProducts.css';
 
 export const DonateProducts = () => {

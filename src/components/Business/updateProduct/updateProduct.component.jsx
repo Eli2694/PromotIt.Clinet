@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ProductIdContext } from '../../context/productID.context';
-import { RoleContext } from '../../context/role.context';
-import { UpdProduct } from '../../services/Business.services';
+import { ProductIdContext } from '../../../context/productID.context';
+import { RoleContext } from '../../../context/role.context';
+import { UpdProduct } from '../../../services/Business.services';
 import './updateProduct.css';
 
 export const UpdateProduct = () => {

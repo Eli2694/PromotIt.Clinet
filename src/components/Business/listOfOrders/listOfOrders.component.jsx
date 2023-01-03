@@ -1,12 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { RoleContext } from '../../context/role.context';
+import { RoleContext } from '../../../context/role.context';
 import {
   ConfirmOrder,
   getOrdersOfMyProduct,
-} from '../../services/Business.services';
-import { ListOfOrdersRow } from '../listOfOrdersRow/listOfOrdersRow.component';
+} from '../../../services/Business.services';
+import { ListOfOrdersRow } from '../../listOfOrdersRow/listOfOrdersRow.component';
 
 export const ListOfOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -37,6 +37,7 @@ export const ListOfOrders = () => {
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th>Order Date</th>
               <th>Country</th>
               <th>City</th>
               <th>Home Address</th>
@@ -62,10 +63,12 @@ export const ListOfOrders = () => {
                   productName,
                   unitPrice,
                   unitsInStock,
+                  date,
                 } = order;
 
                 return (
                   <ListOfOrdersRow
+                    date={date}
                     country={country}
                     city={city}
                     address={homeAddress}

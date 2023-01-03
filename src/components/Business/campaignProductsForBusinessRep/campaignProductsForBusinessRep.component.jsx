@@ -2,13 +2,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ProductIdContext } from '../../context/productID.context';
-import { RoleContext } from '../../context/role.context';
+import { ProductIdContext } from '../../../context/productID.context';
+import { RoleContext } from '../../../context/role.context';
 import {
   delProduct,
   getCampaignProducts,
   getProductId,
-} from '../../services/Business.services';
+} from '../../../services/Business.services';
 import './campaignProductsForBusinessRep.css';
 
 export const CampaignProductsForBusinessRep = () => {

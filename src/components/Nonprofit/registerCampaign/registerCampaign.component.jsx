@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useState } from 'react';
-import { RoleContext } from '../../context/role.context';
-import { RegisCampaign } from '../../services/Campaigns.services';
+import { RoleContext } from '../../../context/role.context';
+import { RegisCampaign } from '../../../services/Campaigns.services';
 import './registerCampaign.style.css';
 
 export const RegisterCampaign = () => {

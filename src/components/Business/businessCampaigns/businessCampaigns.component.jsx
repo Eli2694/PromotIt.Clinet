@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { RoleContext } from '../../context/role.context';
-import { GetCampaignsListForBusiness } from '../../services/Business.services';
+import { RoleContext } from '../../../context/role.context';
+import { GetCampaignsListForBusiness } from '../../../services/Business.services';
 import { BusinessRow } from '../businessRow/businessRow.component';
 
 export const BusinessCampaigns = () => {
@@ -77,5 +77,7 @@ export const BusinessCampaigns = () => {
         </Table>
       </>
     );
+  } else {
+    <h1>User Not Authorized To Perform This Action</h1>;
   }
 };

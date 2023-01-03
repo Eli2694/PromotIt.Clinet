@@ -2,12 +2,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { RoleContext } from '../../context/role.context';
+import { RoleContext } from '../../../context/role.context';
 import {
   delCampaign,
   getPersonalCampaigns,
-} from '../../services/Campaigns.services';
-import { PersonalCampRowDisplay } from '../personalCampRowDisplay/personalCampRowDisplay.component';
+} from '../../../services/Campaigns.services';
+import { PersonalCampRowDisplay } from '../../personalCampRowDisplay/personalCampRowDisplay.component';
 
 export const PersonalCampaigns = () => {
   const [campaigns, setCampaings] = useState([]);

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RoleContext } from '../../context/role.context';
-import { UpdaCampaign } from '../../services/Campaigns.services';
+import { RoleContext } from '../../../context/role.context';
+import { UpdaCampaign } from '../../../services/Campaigns.services';
 import './updateCampaign.css';
 
 export const UpdateCampaign = () => {

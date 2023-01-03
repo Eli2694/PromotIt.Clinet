@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { ProductsListContext } from '../../context/listOfProducts';
-import { ProductIdContext } from '../../context/productID.context';
-import { getProductId } from '../../services/Business.services';
+import { ProductsListContext } from '../../../context/listOfProducts';
+import { ProductIdContext } from '../../../context/productID.context';
+import { getProductId } from '../../../services/Business.services';
 
 export const UsersCampaignProducts = () => {
   const { productsList } = useContext(ProductsListContext);
