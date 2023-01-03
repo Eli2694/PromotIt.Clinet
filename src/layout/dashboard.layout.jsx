@@ -40,8 +40,7 @@ export const Dashboard = () => {
   } else {
     if (role.find((role) => role.name === 'Owner')) {
       return (
-        <>
-          <h1>Dashboard Owner</h1>
+        <div className='dashboard'>
           <Link to='/' className='link'>
             Home
           </Link>
@@ -58,7 +57,7 @@ export const Dashboard = () => {
           >
             Logout
           </Link>
-        </>
+        </div>
       );
     } else if (role.find((role) => role.name === 'BusinessRepresentative')) {
       return (
@@ -68,6 +67,9 @@ export const Dashboard = () => {
           </Link>
           <Link to='/AllCampaignsForBusiness' className='link'>
             List Of Campaigns
+          </Link>
+          <Link to='/listOfOrders' className='link'>
+            List Of Orders To Confirm
           </Link>
           <Link
             onClick={() => logout({ returnTo: window.location.origin })}
@@ -104,8 +106,7 @@ export const Dashboard = () => {
       );
     } else if (role.find((role) => role.name === 'SocialActivist')) {
       return (
-        <>
-          <h1>Dashboard Social-Activist</h1>
+        <div className='dashboard'>
           <Link to='/' className='link'>
             Home
           </Link>
@@ -116,7 +117,7 @@ export const Dashboard = () => {
           >
             Logout
           </Link>
-        </>
+        </div>
       );
     } else {
       return (

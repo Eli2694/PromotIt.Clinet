@@ -7,6 +7,7 @@ import { BuyerForm } from './components/buyerForm/buyerForm.component';
 import { CampaignProductsForBusinessRep } from './components/campaignProductsForBusinessRep/campaignProductsForBusinessRep.component';
 import { DonateProducts } from './components/donateProducts/donateProducts.component';
 import { HomePage } from './components/homePage/homePage.component';
+import { ListOfOrders } from './components/listOfOrders/listOfOrders.component';
 import { LoginPage } from './components/loginPage/loginPage.component';
 import { NonProfitAssociations } from './components/nonProfitAssociations/nonProfitAssociations.component';
 import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
@@ -85,6 +86,10 @@ function App() {
                   <Route
                     path='/buyerForm'
                     element={<BuyerForm></BuyerForm>}
+                  ></Route>
+                  <Route
+                    path='/listOfOrders'
+                    element={<ListOfOrders></ListOfOrders>}
                   ></Route>
                   <Route
                     path='*'

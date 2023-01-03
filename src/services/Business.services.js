@@ -74,3 +74,23 @@ export const UpdProduct = async (product) => {
     console.error(error);
   }
 };
+
+export const getOrdersOfMyProduct = async (Email) => {
+  try {
+    let results = await fetch(`${businessApi}GETORDERS/${Email}`);
+    let Orders = await results.json();
+    console.log(Orders);
+    return Orders;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const ConfirmOrder = async (orderId, Email) => {
+  try {
+    await axios.post(`${businessApi}CONFIRMORDER/${orderId}/${Email}`);
+    alert('Order Confirmed Successfully');
+  } catch (error) {
+    console.error(error);
+  }
+};
