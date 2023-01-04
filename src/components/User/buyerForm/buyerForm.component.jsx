@@ -1,9 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductIdContext } from '../../../context/productID.context';
+import { WalletContext } from '../../../context/wallet';
 import {
   decreaseUnitsInStockByOne,
+  DecreaseUserMoneyAfterBuy,
   getUserID,
   postOrderInfo,
 } from '../../../services/Users.services';
@@ -19,6 +21,10 @@ export const BuyerForm = () => {
   const [postalCode, setPostalCode] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const { productId } = useContext(ProductIdContext);
+  const { wallet, setWallet } = useContext(WalletContext);
+  const location = useLocation();
+
+  const { unitPrice } = location.state ? location.state : { unitPrice: null };
 
   const ReceiveUserId = async () => {
     let id = getUserID(user.email);
@@ -28,6 +34,7 @@ export const BuyerForm = () => {
 
   const handlePurchase = async (e) => {
     e.preventDefault();
+
     let order = {
       userId,
       productId,
@@ -39,6 +46,10 @@ export const BuyerForm = () => {
     };
     await postOrderInfo(order);
     await decreaseUnitsInStockByOne(productId);
+    let UserMoneyAfterPurchase = parseFloat(wallet) - parseFloat(unitPrice);
+    let Email = user.email;
+    await DecreaseUserMoneyAfterBuy(UserMoneyAfterPurchase, Email);
+    setWallet(UserMoneyAfterPurchase.toString());
     navigate('/');
   };
 

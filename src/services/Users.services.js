@@ -43,3 +43,40 @@ export const decreaseUnitsInStockByOne = async (ID) => {
     console.error(error);
   }
 };
+
+export const InitializeWallet = async (Email) => {
+  try {
+    let endpoint = `${userApi}InitWallet/${Email}`;
+    await axios.post(endpoint);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getUserMoney = async (Email) => {
+  try {
+    let results = await fetch(`${userApi}GETUSERMONEY/${Email}`);
+    let userMoney = await results.json();
+    return userMoney;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const AddMoneyToUser = async (Money, Email) => {
+  try {
+    let endpoint = `${userApi}ADDMONEY/${Money}/${Email}`;
+    await axios.post(endpoint);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const DecreaseUserMoneyAfterBuy = async (Money, Email) => {
+  try {
+    let endpoint = `${userApi}DECREASEMONEY/${Money}/${Email}`;
+    await axios.post(endpoint);
+  } catch (error) {
+    console.error(error);
+  }
+};

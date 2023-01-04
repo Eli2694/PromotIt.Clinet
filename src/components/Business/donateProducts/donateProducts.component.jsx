@@ -53,6 +53,7 @@ export const DonateProducts = () => {
           <input
             type='number'
             required
+            min='1'
             onChange={(e) => setUnitsInStock(e.target.value)}
           />
           <button>Donate</button>

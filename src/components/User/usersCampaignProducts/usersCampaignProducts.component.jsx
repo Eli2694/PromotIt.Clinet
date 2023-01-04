@@ -3,20 +3,26 @@ import { Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductsListContext } from '../../../context/listOfProducts';
 import { ProductIdContext } from '../../../context/productID.context';
+import { WalletContext } from '../../../context/wallet';
 import { getProductId } from '../../../services/Business.services';
 
 export const UsersCampaignProducts = () => {
   const { productsList } = useContext(ProductsListContext);
   const { setProductId } = useContext(ProductIdContext);
   const navigate = useNavigate();
+  const { wallet } = useContext(WalletContext);
 
-  const handleBuyProduct = async (CampaignId, productName) => {
+  const handleBuyProduct = async (CampaignId, productName, unitPrice) => {
     try {
       let id = await getProductId(CampaignId, productName);
       let resolvedId = await id;
       console.log(resolvedId);
       setProductId(resolvedId);
-      navigate('/buyerForm');
+      navigate('/buyerForm', {
+        state: {
+          unitPrice,
+        },
+      });
     } catch (error) {
       console.error(error);
     }
@@ -37,11 +43,14 @@ export const UsersCampaignProducts = () => {
                 </Card.Text>
               </Card.Body>
               <Card.Footer>
-                {unitsInStock > 0 ? (
+                {unitsInStock > 0 &&
+                parseFloat(unitPrice) <= parseFloat(wallet) ? (
                   <Button
                     className='btn'
                     variant='primary'
-                    onClick={() => handleBuyProduct(CampaignId, productName)}
+                    onClick={() =>
+                      handleBuyProduct(CampaignId, productName, unitPrice)
+                    }
                   >
                     Buy
                   </Button>

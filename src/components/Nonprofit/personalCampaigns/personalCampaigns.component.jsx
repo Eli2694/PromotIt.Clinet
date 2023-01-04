@@ -7,7 +7,7 @@ import {
   delCampaign,
   getPersonalCampaigns,
 } from '../../../services/Campaigns.services';
-import { PersonalCampRowDisplay } from '../../personalCampRowDisplay/personalCampRowDisplay.component';
+import { PersonalCampRowDisplay } from '../personalCampRowDisplay/personalCampRowDisplay.component';
 
 export const PersonalCampaigns = () => {
   const [campaigns, setCampaings] = useState([]);

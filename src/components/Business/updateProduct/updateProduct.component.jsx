@@ -75,7 +75,7 @@ export const UpdateProduct = () => {
               }
             />
             <button>Update</button>
-            <button onClick={() => navigate('/BusinessRepProducts')}>
+            <button onClick={() => navigate('/AllCampaignsForBusiness')}>
               Go Back
             </button>
           </form>

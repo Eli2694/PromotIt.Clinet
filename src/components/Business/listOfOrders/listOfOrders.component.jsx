@@ -6,7 +6,7 @@ import {
   ConfirmOrder,
   getOrdersOfMyProduct,
 } from '../../../services/Business.services';
-import { ListOfOrdersRow } from '../../listOfOrdersRow/listOfOrdersRow.component';
+import { ListOfOrdersRow } from '../listOfOrdersRow/listOfOrdersRow.component';
 
 export const ListOfOrders = () => {
   const [orders, setOrders] = useState([]);

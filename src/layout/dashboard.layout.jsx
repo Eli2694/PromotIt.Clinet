@@ -2,18 +2,28 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RoleContext } from '../context/role.context';
+import { WalletContext } from '../context/wallet';
 import { getRoles } from '../services/Auth0Roles.services';
-import { checkIfUserExistsInDB } from '../services/Users.services';
+import {
+  checkIfUserExistsInDB,
+  getUserMoney,
+  InitializeWallet,
+} from '../services/Users.services';
 import './dashboard.css';
 
 export const Dashboard = () => {
   const { logout, user } = useAuth0();
   const { role, setRole } = useContext(RoleContext);
+  const { setWallet } = useContext(WalletContext);
 
   const handleRole = async () => {
     try {
       let userId = user.sub;
+      let Email = user.email;
       let roleFromAuth0 = await getRoles(userId);
+      await InitializeWallet(Email);
+      let userMoney = await getUserMoney(Email);
+      await setWallet(userMoney);
       setRole(roleFromAuth0);
       InsertUserToDB();
     } catch (error) {
@@ -25,9 +35,7 @@ export const Dashboard = () => {
     let logInUser = {
       FullName: user.name,
       Email: user.email,
-      AssociationOwner: 0,
     };
-
     checkIfUserExistsInDB(logInUser);
   };
 
@@ -43,6 +51,9 @@ export const Dashboard = () => {
         <div className='dashboard'>
           <Link to='/' className='link'>
             Home
+          </Link>
+          <Link to='/wallet' className='link'>
+            Wallet
           </Link>
           <Link to='/association' className='link'>
             Register Association
@@ -65,6 +76,9 @@ export const Dashboard = () => {
           <Link to='/' className='link'>
             Home
           </Link>
+          <Link to='/wallet' className='link'>
+            Wallet
+          </Link>
           <Link to='/AllCampaignsForBusiness' className='link'>
             List Of Campaigns
           </Link>
@@ -85,6 +99,9 @@ export const Dashboard = () => {
         <div className='dashboard'>
           <Link to='/' className='link'>
             Home
+          </Link>
+          <Link to='/wallet' className='link'>
+            Wallet
           </Link>
           <Link to='/association' className='link'>
             Register Association
@@ -110,6 +127,9 @@ export const Dashboard = () => {
           <Link to='/' className='link'>
             Home
           </Link>
+          <Link to='/wallet' className='link'>
+            Wallet
+          </Link>
           <Link
             onClick={() => logout({ returnTo: window.location.origin })}
             to='/'
@@ -125,6 +145,9 @@ export const Dashboard = () => {
           <h1>Dashboard User</h1>
           <Link to='/' className='link'>
             Home
+          </Link>
+          <Link to='/wallet' className='link'>
+            Wallet
           </Link>
           <Link
             onClick={() => logout({ returnTo: window.location.origin })}

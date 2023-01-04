@@ -6,11 +6,11 @@ import { BusinessCampaigns } from './components/Business/businessCampaigns/busin
 import { BuyerForm } from './components/User/buyerForm/buyerForm.component';
 import { CampaignProductsForBusinessRep } from './components/Business/campaignProductsForBusinessRep/campaignProductsForBusinessRep.component';
 import { DonateProducts } from './components/Business/donateProducts/donateProducts.component';
-import { HomePage } from './components/homePage/homePage.component';
+import { HomePage } from './components/General/homePage/homePage.component';
 import { ListOfOrders } from './components/Business/listOfOrders/listOfOrders.component';
-import { LoginPage } from './components/loginPage/loginPage.component';
+import { LoginPage } from './components/General/loginPage/loginPage.component';
 import { NonProfitAssociations } from './components/Nonprofit/nonProfitAssociations/nonProfitAssociations.component';
-import { PageNotFound } from './components/pageNotFound/pageNotFound.component';
+import { PageNotFound } from './components/General/pageNotFound/pageNotFound.component';
 import { PersonalCampaigns } from './components/Nonprofit/personalCampaigns/personalCampaigns.component';
 import { RegisterCampaign } from './components/Nonprofit/registerCampaign/registerCampaign.component';
 import { UpdateCampaign } from './components/Nonprofit/updateCampaign/updateCampaign.component';
@@ -20,12 +20,15 @@ import { ProductsListContext } from './context/listOfProducts';
 import { ProductIdContext } from './context/productID.context';
 import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
+import { Wallet } from './components/User/wallet/wallet.component';
+import { WalletContext } from './context/wallet';
 
 function App() {
   const [role, setRole] = useState([]);
   const [productId, setProductId] = useState([]);
   const [productsList, setProductsList] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
+  const [wallet, setWallet] = useState('');
   if (isLoading) {
     return (
       <div className='App'>
@@ -42,60 +45,63 @@ function App() {
               <ProductsListContext.Provider
                 value={{ productsList, setProductsList }}
               >
-                <Dashboard></Dashboard>
-                <Routes>
-                  <Route path='/' element={<HomePage></HomePage>}></Route>
-                  <Route
-                    path='/association'
-                    element={<NonProfitAssociations></NonProfitAssociations>}
-                  ></Route>
-                  <Route
-                    path='/campaignRegistration'
-                    element={<RegisterCampaign></RegisterCampaign>}
-                  ></Route>
-                  <Route
-                    path='/personalCampaigns'
-                    element={<PersonalCampaigns></PersonalCampaigns>}
-                  ></Route>
-                  <Route
-                    path='/updateCampaign'
-                    element={<UpdateCampaign></UpdateCampaign>}
-                  ></Route>
-                  <Route
-                    path='/AllCampaignsForBusiness'
-                    element={<BusinessCampaigns></BusinessCampaigns>}
-                  ></Route>
-                  <Route
-                    path='/DonateProduct'
-                    element={<DonateProducts></DonateProducts>}
-                  ></Route>
-                  <Route
-                    path='/BusinessRepProducts'
-                    element={
-                      <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
-                    }
-                  ></Route>
-                  <Route
-                    path='/updateProduct'
-                    element={<UpdateProduct></UpdateProduct>}
-                  ></Route>
-                  <Route
-                    path='/usersProducts'
-                    element={<UsersCampaignProducts></UsersCampaignProducts>}
-                  ></Route>
-                  <Route
-                    path='/buyerForm'
-                    element={<BuyerForm></BuyerForm>}
-                  ></Route>
-                  <Route
-                    path='/listOfOrders'
-                    element={<ListOfOrders></ListOfOrders>}
-                  ></Route>
-                  <Route
-                    path='*'
-                    element={<PageNotFound></PageNotFound>}
-                  ></Route>
-                </Routes>
+                <WalletContext.Provider value={{ wallet, setWallet }}>
+                  <Dashboard></Dashboard>
+                  <Routes>
+                    <Route path='/' element={<HomePage></HomePage>}></Route>
+                    <Route
+                      path='/association'
+                      element={<NonProfitAssociations></NonProfitAssociations>}
+                    ></Route>
+                    <Route
+                      path='/campaignRegistration'
+                      element={<RegisterCampaign></RegisterCampaign>}
+                    ></Route>
+                    <Route
+                      path='/personalCampaigns'
+                      element={<PersonalCampaigns></PersonalCampaigns>}
+                    ></Route>
+                    <Route
+                      path='/updateCampaign'
+                      element={<UpdateCampaign></UpdateCampaign>}
+                    ></Route>
+                    <Route
+                      path='/AllCampaignsForBusiness'
+                      element={<BusinessCampaigns></BusinessCampaigns>}
+                    ></Route>
+                    <Route
+                      path='/DonateProduct'
+                      element={<DonateProducts></DonateProducts>}
+                    ></Route>
+                    <Route
+                      path='/BusinessRepProducts'
+                      element={
+                        <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
+                      }
+                    ></Route>
+                    <Route
+                      path='/updateProduct'
+                      element={<UpdateProduct></UpdateProduct>}
+                    ></Route>
+                    <Route
+                      path='/usersProducts'
+                      element={<UsersCampaignProducts></UsersCampaignProducts>}
+                    ></Route>
+                    <Route
+                      path='/buyerForm'
+                      element={<BuyerForm></BuyerForm>}
+                    ></Route>
+                    <Route
+                      path='/listOfOrders'
+                      element={<ListOfOrders></ListOfOrders>}
+                    ></Route>
+                    <Route path='/wallet' element={<Wallet></Wallet>}></Route>
+                    <Route
+                      path='*'
+                      element={<PageNotFound></PageNotFound>}
+                    ></Route>
+                  </Routes>
+                </WalletContext.Provider>
               </ProductsListContext.Provider>
             </ProductIdContext.Provider>
           </RoleContext.Provider>
