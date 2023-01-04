@@ -47,8 +47,10 @@ export const BuyerForm = () => {
     await postOrderInfo(order);
     await decreaseUnitsInStockByOne(productId);
     let UserMoneyAfterPurchase = parseFloat(wallet) - parseFloat(unitPrice);
+    console.log(UserMoneyAfterPurchase);
+
     let Email = user.email;
-    await DecreaseUserMoneyAfterBuy(UserMoneyAfterPurchase, Email);
+    await DecreaseUserMoneyAfterBuy(unitPrice, Email);
     setWallet(UserMoneyAfterPurchase.toString());
     navigate('/');
   };
