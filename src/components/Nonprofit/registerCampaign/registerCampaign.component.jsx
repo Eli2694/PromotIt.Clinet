@@ -8,6 +8,7 @@ export const RegisterCampaign = () => {
   const [campaignName, setCampaignName] = useState();
   const [campaignWebsite, setCampaignWebsite] = useState();
   const [campaginHashtag, setCampaignHashtag] = useState();
+  const [donationAmount, setDonationAmount] = useState('0.00');
   const { user } = useAuth0();
   const [FullName] = useState(user.name);
   const [Email] = useState(user.email);
@@ -15,12 +16,14 @@ export const RegisterCampaign = () => {
 
   const handleSubmitCampagin = (e) => {
     e.preventDefault();
+
     const campaign = {
       campaignName,
       campaignWebsite,
       campaginHashtag,
       FullName,
       Email,
+      donationAmount,
     };
     RegisCampaign(campaign);
   };
@@ -52,6 +55,7 @@ export const RegisterCampaign = () => {
               setCampaignWebsite(e.target.value.replace(/'/g, ''))
             }
           />
+
           <button>Add Campaign</button>
         </form>
       </div>

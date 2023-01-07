@@ -12,7 +12,8 @@ export const Wallet = () => {
   const { user } = useAuth0();
   console.log(wallet);
 
-  const handleAddMoney = async () => {
+  const handleAddMoney = async (e) => {
+    e.preventDefault();
     let Email = user.email;
     await AddMoneyToUser(UserMoney, Email);
     let userMoney = await getUserMoney(Email);

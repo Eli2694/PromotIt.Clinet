@@ -7,6 +7,7 @@ export const HomePageRow = ({
   campaignName,
   campaginHashtag,
   campaignWebsite,
+  donationAmount,
   handleProductsList,
 }) => {
   return (
@@ -20,6 +21,7 @@ export const HomePageRow = ({
         <a href={campaignWebsite}>{campaignWebsite}</a>
       </td>
       <td>{campaginHashtag}</td>
+      <td>{parseFloat(donationAmount).toFixed(2)}$</td>
       <td>
         <Button onClick={handleProductsList} variant='light'>
           See Campaign Product

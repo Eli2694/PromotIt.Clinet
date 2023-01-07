@@ -37,6 +37,7 @@ export const HomePage = () => {
             <th>Campaign Name</th>
             <th>Campaign Website</th>
             <th>Campaign Hashtag</th>
+            <th>Donation amount</th>
             <th>Campaign Products</th>
           </tr>
         </thead>
@@ -50,6 +51,7 @@ export const HomePage = () => {
                 campaignName,
                 campaignWebsite,
                 campaginHashtag,
+                donationAmount,
               } = info;
               const urlObject = new URL(campaignWebsite);
               const urlObject2 = new URL(AssociationWebsite);
@@ -62,6 +64,7 @@ export const HomePage = () => {
                   campaignName={campaignName}
                   campaignWebsite={cWebsite}
                   campaginHashtag={campaginHashtag}
+                  donationAmount={donationAmount}
                   handleProductsList={() => handleCampaignProducts(CampaignId)}
                 ></HomePageRow>
               );

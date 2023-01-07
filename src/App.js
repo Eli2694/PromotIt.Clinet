@@ -31,7 +31,7 @@ function App() {
   const [productsList, setProductsList] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
   const [wallet, setWallet] = useState('');
-  const [points, setPoints] = useState('');
+  const [points, setPoints] = useState('0');
 
   if (isLoading) {
     return (

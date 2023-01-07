@@ -4,6 +4,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductIdContext } from '../../../context/productID.context';
 import { WalletContext } from '../../../context/wallet';
 import {
+  getCampaignID,
+  postCampaignDonation,
+} from '../../../services/Campaigns.services';
+import {
   decreaseUnitsInStockByOne,
   DecreaseUserMoneyAfterBuy,
   getUserID,
@@ -44,6 +48,8 @@ export const BuyerForm = () => {
       postalCode,
       phoneNumber,
     };
+    let campaignID = await getCampaignID(productId);
+    await postCampaignDonation(campaignID, unitPrice);
     await postOrderInfo(order);
     await decreaseUnitsInStockByOne(productId);
     let UserMoneyAfterPurchase = parseFloat(wallet) - parseFloat(unitPrice);

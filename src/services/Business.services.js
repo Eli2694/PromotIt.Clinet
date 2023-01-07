@@ -12,6 +12,10 @@ export const GetCampaignsListForBusiness = async () => {
 };
 
 export const Donate = async (product) => {
+  if (!product) {
+    alert('The donation was not successful');
+    return;
+  }
   try {
     console.log(product);
     await axios.post(`${businessApi}Donate`, product);
@@ -22,6 +26,10 @@ export const Donate = async (product) => {
 };
 
 export const getCampaignProducts = async (ID, Email) => {
+  if (!ID || !Email) {
+    alert('Getting the campaigns was not successful');
+    return;
+  }
   try {
     let results = await fetch(`${businessApi}GETPRODUCTS/${ID}/${Email}`);
     let products = await results.json();
@@ -33,6 +41,10 @@ export const getCampaignProducts = async (ID, Email) => {
 };
 
 export const getCProducts = async (ID) => {
+  if (!ID) {
+    alert('Getting products was not successful');
+    return;
+  }
   try {
     let results = await fetch(`${businessApi}PRODUCTS/${ID}`);
     let products = await results.json();
@@ -44,6 +56,12 @@ export const getCProducts = async (ID) => {
 };
 
 export const delProduct = async (campaignId, productName) => {
+  if (!campaignId || !productName) {
+    alert(
+      'Deleting product was not successful because the campaign ID is invalid or the product name is invalid'
+    );
+    return;
+  }
   try {
     let endpoint = `${businessApi}DELETEPRPDUCT/${campaignId}/${productName}`;
     await axios.delete(endpoint);
@@ -54,6 +72,12 @@ export const delProduct = async (campaignId, productName) => {
 };
 
 export const getProductId = async (CampaignId, productName) => {
+  if (!CampaignId || !productName) {
+    alert(
+      'Getting product ID not successful because the campaign ID is invalid or the product name is invalid'
+    );
+    return;
+  }
   try {
     let results = await fetch(
       `${businessApi}GETPRODUCTID/${CampaignId}/${productName}`
@@ -67,6 +91,10 @@ export const getProductId = async (CampaignId, productName) => {
 };
 
 export const UpdProduct = async (product) => {
+  if (!product) {
+    alert('Updating product was not successful because product was not found');
+    return;
+  }
   console.log(product);
   try {
     await axios.post(`${businessApi}Update`, product);
@@ -77,6 +105,12 @@ export const UpdProduct = async (product) => {
 };
 
 export const getOrdersOfMyProduct = async (Email) => {
+  if (!Email) {
+    alert(
+      'Getting orders of my products  was not successful because email was not found'
+    );
+    return;
+  }
   try {
     let results = await fetch(`${businessApi}GETORDERS/${Email}`);
     let Orders = await results.json();
@@ -88,6 +122,12 @@ export const getOrdersOfMyProduct = async (Email) => {
 };
 
 export const ConfirmOrder = async (orderId, Email) => {
+  if (!orderId || !Email) {
+    alert(
+      'Confirmation of order was not successful because the orderId was not provided or the email was not provided'
+    );
+    return;
+  }
   try {
     await axios.post(`${businessApi}CONFIRMORDER/${orderId}/${Email}`);
     alert('Order Confirmed Successfully');

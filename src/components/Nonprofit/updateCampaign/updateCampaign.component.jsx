@@ -38,13 +38,15 @@ export const UpdateCampaign = () => {
             <Card.Header>Campaign</Card.Header>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                Campaign Name: {campaignInfo.campaignName}
+                Campaign Name: {campaignInfo.campaignName.replace(/'/g, '')}
               </ListGroup.Item>
               <ListGroup.Item>
-                Campaign Hashtag: {campaignInfo.campaginHashtag}
+                Campaign Hashtag:{' '}
+                {campaignInfo.campaginHashtag.replace(/'/g, '')}
               </ListGroup.Item>
               <ListGroup.Item>
-                Campaign Website {campaignInfo.campaignWebsite}
+                Campaign Website:{' '}
+                {campaignInfo.campaignWebsite.replace(/'/g, '')}
               </ListGroup.Item>
             </ListGroup>
           </Card>

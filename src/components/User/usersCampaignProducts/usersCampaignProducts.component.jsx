@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductsListContext } from '../../../context/listOfProducts';
@@ -32,7 +32,65 @@ export const UsersCampaignProducts = () => {
     }
   };
 
-  if (role.find((role) => role.name === 'SocialActivist')) {
+  if (role.find((role) => role.name === 'NonProfitRepresentative')) {
+    return (
+      <>
+        <div className='card-list'>
+          {productsList &&
+            productsList.map((product) => {
+              let {
+                productName,
+                unitPrice,
+                unitsInStock,
+                CampaignId,
+                imageURL,
+              } = product;
+              return (
+                <Card className='card'>
+                  <Card.Img
+                    variant='top'
+                    src={imageURL}
+                    style={{
+                      maxWidth: '200px',
+                      maxHeight: '250px',
+                    }}
+                  />
+                  <Card.Body>
+                    <Card.Title>{productName}</Card.Title>
+                    <Card.Text>
+                      <p>
+                        Potential Donation:{' '}
+                        {parseFloat(unitPrice) * parseInt(unitsInStock)}$
+                      </p>
+                      <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
+                      <p>Units In Stock: {unitsInStock}</p>
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    {unitsInStock > 0 &&
+                    parseFloat(unitPrice) <= parseFloat(wallet) ? (
+                      <Button
+                        className='btn'
+                        variant='primary'
+                        onClick={() =>
+                          handleBuyProduct(CampaignId, productName, unitPrice)
+                        }
+                      >
+                        Buy
+                      </Button>
+                    ) : (
+                      <Button className='btn' variant='primary' disabled>
+                        Buy
+                      </Button>
+                    )}
+                  </Card.Footer>
+                </Card>
+              );
+            })}
+        </div>
+      </>
+    );
+  } else if (role.find((role) => role.name === 'SocialActivist')) {
     return (
       <div className='card-list'>
         {productsList &&
@@ -52,8 +110,8 @@ export const UsersCampaignProducts = () => {
                 <Card.Body>
                   <Card.Title>{productName}</Card.Title>
                   <Card.Text>
-                    <p>Product Price {parseFloat(unitPrice).toFixed(2)}$</p>
-                    <p>Units In Stock {unitsInStock}</p>
+                    <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
+                    <p>Units In Stock: {unitsInStock}</p>
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
@@ -90,6 +148,23 @@ export const UsersCampaignProducts = () => {
                       Buy With Points
                     </Button>
                   )}
+
+                  {unitsInStock > 0 &&
+                  parseFloat(unitPrice) <= parseFloat(points) ? (
+                    <Button
+                      className='btn'
+                      variant='success'
+                      onClick={() =>
+                        handleBuyProduct(CampaignId, productName, unitPrice)
+                      }
+                    >
+                      Donate
+                    </Button>
+                  ) : (
+                    <Button className='btn' variant='success' disabled>
+                      Donate
+                    </Button>
+                  )}
                 </Card.Footer>
               </Card>
             );
@@ -103,6 +178,7 @@ export const UsersCampaignProducts = () => {
           productsList.map((product) => {
             let { productName, unitPrice, unitsInStock, CampaignId, imageURL } =
               product;
+
             return (
               <Card className='card'>
                 <Card.Img
@@ -116,8 +192,8 @@ export const UsersCampaignProducts = () => {
                 <Card.Body>
                   <Card.Title>{productName}</Card.Title>
                   <Card.Text>
-                    <h6>Product Price {parseFloat(unitPrice).toFixed(2)}$</h6>
-                    <h6>Units In Stock {unitsInStock}</h6>
+                    <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
+                    <p>Units In Stock: {unitsInStock}</p>
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
