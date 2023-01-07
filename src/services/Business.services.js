@@ -13,6 +13,7 @@ export const GetCampaignsListForBusiness = async () => {
 
 export const Donate = async (product) => {
   try {
+    console.log(product);
     await axios.post(`${businessApi}Donate`, product);
     alert('product successfully donated');
   } catch (error) {

@@ -36,15 +36,15 @@ export const delCampaign = async (ID) => {
   }
 };
 
-export const getCampaignID = async (website) => {
-  try {
-    let results = await fetch(`${campaignApi}GETID/${website}`);
-    let campaign = await results.json();
-    return campaign;
-  } catch (error) {
-    console.error(error);
-  }
-};
+// export const getCampaignID = async (website) => {
+//   try {
+//     let results = await fetch(`${campaignApi}GETID/${website}`);
+//     let campaign = await results.json();
+//     return campaign;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 export const UpdaCampaign = async (UpdatedCampaign) => {
   try {

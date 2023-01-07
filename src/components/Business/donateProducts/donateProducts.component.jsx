@@ -9,6 +9,7 @@ export const DonateProducts = () => {
   const [productName, setProductName] = useState('');
   const [unitPrice, setUnitPrice] = useState(1);
   const [unitsInStock, setUnitsInStock] = useState(1);
+  const [imageURL, setImageURL] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const { role } = useContext(RoleContext);
@@ -25,6 +26,7 @@ export const DonateProducts = () => {
       unitsInStock,
       CampaignId,
       Email,
+      imageURL,
     };
     await Donate(product);
     navigate('/AllCampaignsForBusiness');
@@ -55,6 +57,12 @@ export const DonateProducts = () => {
             required
             min='1'
             onChange={(e) => setUnitsInStock(e.target.value)}
+          />
+          <label>ImageURL</label>
+          <input
+            type='text'
+            required
+            onChange={(e) => setImageURL(e.target.value.replace(/'/g, ''))}
           />
           <button>Donate</button>
           <button onClick={() => navigate('/AllCampaignsForBusiness')}>

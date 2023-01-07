@@ -24,6 +24,7 @@ export const CampaignProductsForBusinessRep = () => {
   const CampaignProducts = async () => {
     let Email = user.email;
     let cProducts = await getCampaignProducts(CampaignId, Email);
+    console.log(cProducts);
     setListOfProducts(cProducts);
   };
 
@@ -67,9 +68,18 @@ export const CampaignProductsForBusinessRep = () => {
       <div className='card-list'>
         {listOfProducts &&
           listOfProducts.map((product) => {
-            let { productName, unitPrice, unitsInStock, CampaignId } = product;
+            let { productName, unitPrice, unitsInStock, CampaignId, imageURL } =
+              product;
             return (
               <Card className='card'>
+                <Card.Img
+                  variant='top'
+                  src={imageURL}
+                  style={{
+                    maxWidth: '200px',
+                    maxHeight: '300px',
+                  }}
+                />
                 <Card.Body>
                   <Card.Title>{productName}</Card.Title>
                   <Card.Text>

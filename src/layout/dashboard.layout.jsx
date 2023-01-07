@@ -55,12 +55,6 @@ export const Dashboard = () => {
           <Link to='/wallet' className='link'>
             Wallet
           </Link>
-          <Link to='/association' className='link'>
-            Register Association
-          </Link>
-          <Link to='/campaignRegistration' className='link'>
-            Register Campaign
-          </Link>
           <Link
             onClick={() => logout({ returnTo: window.location.origin })}
             to='/'
@@ -129,6 +123,9 @@ export const Dashboard = () => {
           </Link>
           <Link to='/wallet' className='link'>
             Wallet
+          </Link>
+          <Link to='/pointes' className='link'>
+            Pointes
           </Link>
           <Link
             onClick={() => logout({ returnTo: window.location.origin })}

@@ -22,6 +22,8 @@ import { RoleContext } from './context/role.context';
 import { Dashboard } from './layout/dashboard.layout';
 import { Wallet } from './components/User/wallet/wallet.component';
 import { WalletContext } from './context/wallet';
+import { TwitterWalletContext } from './context/twitterWallet';
+import { TwitterPoints } from './components/Activist/twitterPoints/twitterPoints.component';
 
 function App() {
   const [role, setRole] = useState([]);
@@ -29,6 +31,8 @@ function App() {
   const [productsList, setProductsList] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
   const [wallet, setWallet] = useState('');
+  const [points, setPoints] = useState('');
+
   if (isLoading) {
     return (
       <div className='App'>
@@ -46,61 +50,71 @@ function App() {
                 value={{ productsList, setProductsList }}
               >
                 <WalletContext.Provider value={{ wallet, setWallet }}>
-                  <Dashboard></Dashboard>
-                  <Routes>
-                    <Route path='/' element={<HomePage></HomePage>}></Route>
-                    <Route
-                      path='/association'
-                      element={<NonProfitAssociations></NonProfitAssociations>}
-                    ></Route>
-                    <Route
-                      path='/campaignRegistration'
-                      element={<RegisterCampaign></RegisterCampaign>}
-                    ></Route>
-                    <Route
-                      path='/personalCampaigns'
-                      element={<PersonalCampaigns></PersonalCampaigns>}
-                    ></Route>
-                    <Route
-                      path='/updateCampaign'
-                      element={<UpdateCampaign></UpdateCampaign>}
-                    ></Route>
-                    <Route
-                      path='/AllCampaignsForBusiness'
-                      element={<BusinessCampaigns></BusinessCampaigns>}
-                    ></Route>
-                    <Route
-                      path='/DonateProduct'
-                      element={<DonateProducts></DonateProducts>}
-                    ></Route>
-                    <Route
-                      path='/BusinessRepProducts'
-                      element={
-                        <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
-                      }
-                    ></Route>
-                    <Route
-                      path='/updateProduct'
-                      element={<UpdateProduct></UpdateProduct>}
-                    ></Route>
-                    <Route
-                      path='/usersProducts'
-                      element={<UsersCampaignProducts></UsersCampaignProducts>}
-                    ></Route>
-                    <Route
-                      path='/buyerForm'
-                      element={<BuyerForm></BuyerForm>}
-                    ></Route>
-                    <Route
-                      path='/listOfOrders'
-                      element={<ListOfOrders></ListOfOrders>}
-                    ></Route>
-                    <Route path='/wallet' element={<Wallet></Wallet>}></Route>
-                    <Route
-                      path='*'
-                      element={<PageNotFound></PageNotFound>}
-                    ></Route>
-                  </Routes>
+                  <TwitterWalletContext.Provider value={{ points, setPoints }}>
+                    <Dashboard></Dashboard>
+                    <Routes>
+                      <Route path='/' element={<HomePage></HomePage>}></Route>
+                      <Route
+                        path='/association'
+                        element={
+                          <NonProfitAssociations></NonProfitAssociations>
+                        }
+                      ></Route>
+                      <Route
+                        path='/campaignRegistration'
+                        element={<RegisterCampaign></RegisterCampaign>}
+                      ></Route>
+                      <Route
+                        path='/personalCampaigns'
+                        element={<PersonalCampaigns></PersonalCampaigns>}
+                      ></Route>
+                      <Route
+                        path='/updateCampaign'
+                        element={<UpdateCampaign></UpdateCampaign>}
+                      ></Route>
+                      <Route
+                        path='/AllCampaignsForBusiness'
+                        element={<BusinessCampaigns></BusinessCampaigns>}
+                      ></Route>
+                      <Route
+                        path='/DonateProduct'
+                        element={<DonateProducts></DonateProducts>}
+                      ></Route>
+                      <Route
+                        path='/BusinessRepProducts'
+                        element={
+                          <CampaignProductsForBusinessRep></CampaignProductsForBusinessRep>
+                        }
+                      ></Route>
+                      <Route
+                        path='/updateProduct'
+                        element={<UpdateProduct></UpdateProduct>}
+                      ></Route>
+                      <Route
+                        path='/usersProducts'
+                        element={
+                          <UsersCampaignProducts></UsersCampaignProducts>
+                        }
+                      ></Route>
+                      <Route
+                        path='/buyerForm'
+                        element={<BuyerForm></BuyerForm>}
+                      ></Route>
+                      <Route
+                        path='/listOfOrders'
+                        element={<ListOfOrders></ListOfOrders>}
+                      ></Route>
+                      <Route path='/wallet' element={<Wallet></Wallet>}></Route>
+                      <Route
+                        path='/pointes'
+                        element={<TwitterPoints></TwitterPoints>}
+                      ></Route>
+                      <Route
+                        path='*'
+                        element={<PageNotFound></PageNotFound>}
+                      ></Route>
+                    </Routes>
+                  </TwitterWalletContext.Provider>
                 </WalletContext.Provider>
               </ProductsListContext.Provider>
             </ProductIdContext.Provider>
