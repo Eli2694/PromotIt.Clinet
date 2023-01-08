@@ -1,24 +1,5 @@
-import { activistApi, expressSeverAPI } from '../const/api';
-
-export const getCampaignHashtag = async () => {
-  try {
-    let results = await fetch(`${activistApi}GETHASHTAG/`);
-    let Hashtags = await results.json();
-    return Hashtags;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getCampaignWebsites = async () => {
-  try {
-    let results = await fetch(`${activistApi}GETWEBSITE/`);
-    let Websites = await results.json();
-    return Websites;
-  } catch (error) {
-    console.error(error);
-  }
-};
+import { activistApi } from '../const/api';
+import axios from 'axios';
 
 export const getUserTwitterID = async (username) => {
   if (!username) {
@@ -26,36 +7,26 @@ export const getUserTwitterID = async (username) => {
     return;
   }
   try {
-    let results = await fetch(`${expressSeverAPI}username/${username}`);
-    let id = await results.json();
-    return id;
+    let results = await fetch(`${activistApi}USERID/${username}`);
+    let userObj = await results.json();
+    console.log(userObj);
+    return userObj;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getUserTimelineForTweets = async () => {
-  try {
-    let results = await fetch(`${expressSeverAPI}setTimeline`);
-    let timeline = await results.json();
-    return timeline;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getUserTweetsLastHour = async (userId, timeLine) => {
-  if (!userId || !timeLine) {
-    alert('userId and timeLine are required');
+export const getUserTweets = async (username, since) => {
+  if (!username || !since) {
+    alert('userId or since  are required');
+    console.log(username, since);
     return;
   }
   try {
-    console.log(timeLine);
-    let results = await fetch(
-      `${expressSeverAPI}userTweets/${userId}/${timeLine}`
-    );
-    let timeline = await results.json();
-    return timeline;
+    let results = await fetch(`${activistApi}USERTWEETS/${username}/${since}`);
+    let tweets = await results.json();
+    console.log(tweets);
+    return tweets;
   } catch (error) {
     console.error(error);
   }

@@ -43,118 +43,113 @@ export const Dashboard = () => {
     handleRole();
   }, []);
 
-  if (role.length === 0) {
-    return <h1>Loading...</h1>;
+  if (role.find((role) => role.name === 'Owner')) {
+    return (
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
+    );
+  } else if (role.find((role) => role.name === 'BusinessRepresentative')) {
+    return (
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/AllCampaignsForBusiness' className='link'>
+          List Of Campaigns
+        </Link>
+        <Link to='/listOfOrders' className='link'>
+          List Of Orders To Confirm
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
+    );
+  } else if (role.find((role) => role.name === 'NonProfitRepresentative')) {
+    return (
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/association' className='link'>
+          Register Association
+        </Link>
+        <Link to='/campaignRegistration' className='link'>
+          Register Campaign
+        </Link>
+        <Link to='/personalCampaigns' className='link'>
+          Personal Campaigns
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
+    );
+  } else if (role.find((role) => role.name === 'SocialActivist')) {
+    return (
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/pointes' className='link'>
+          Pointes
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
+    );
   } else {
-    if (role.find((role) => role.name === 'Owner')) {
-      return (
-        <div className='dashboard'>
-          <Link to='/' className='link'>
-            Home
-          </Link>
-          <Link to='/wallet' className='link'>
-            Wallet
-          </Link>
-          <Link
-            onClick={() => logout({ returnTo: window.location.origin })}
-            to='/'
-            className='link'
-          >
-            Logout
-          </Link>
-        </div>
-      );
-    } else if (role.find((role) => role.name === 'BusinessRepresentative')) {
-      return (
-        <div className='dashboard'>
-          <Link to='/' className='link'>
-            Home
-          </Link>
-          <Link to='/wallet' className='link'>
-            Wallet
-          </Link>
-          <Link to='/AllCampaignsForBusiness' className='link'>
-            List Of Campaigns
-          </Link>
-          <Link to='/listOfOrders' className='link'>
-            List Of Orders To Confirm
-          </Link>
-          <Link
-            onClick={() => logout({ returnTo: window.location.origin })}
-            to='/'
-            className='link'
-          >
-            Logout
-          </Link>
-        </div>
-      );
-    } else if (role.find((role) => role.name === 'NonProfitRepresentative')) {
-      return (
-        <div className='dashboard'>
-          <Link to='/' className='link'>
-            Home
-          </Link>
-          <Link to='/wallet' className='link'>
-            Wallet
-          </Link>
-          <Link to='/association' className='link'>
-            Register Association
-          </Link>
-          <Link to='/campaignRegistration' className='link'>
-            Register Campaign
-          </Link>
-          <Link to='/personalCampaigns' className='link'>
-            Personal Campaigns
-          </Link>
-          <Link
-            onClick={() => logout({ returnTo: window.location.origin })}
-            to='/'
-            className='link'
-          >
-            Logout
-          </Link>
-        </div>
-      );
-    } else if (role.find((role) => role.name === 'SocialActivist')) {
-      return (
-        <div className='dashboard'>
-          <Link to='/' className='link'>
-            Home
-          </Link>
-          <Link to='/wallet' className='link'>
-            Wallet
-          </Link>
-          <Link to='/pointes' className='link'>
-            Pointes
-          </Link>
-          <Link
-            onClick={() => logout({ returnTo: window.location.origin })}
-            to='/'
-            className='link'
-          >
-            Logout
-          </Link>
-        </div>
-      );
-    } else {
-      return (
-        <>
-          <h1>Dashboard User</h1>
-          <Link to='/' className='link'>
-            Home
-          </Link>
-          <Link to='/wallet' className='link'>
-            Wallet
-          </Link>
-          <Link
-            onClick={() => logout({ returnTo: window.location.origin })}
-            to='/'
-            className='link'
-          >
-            Logout
-          </Link>
-        </>
-      );
-    }
+    return (
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
+    );
   }
 };
