@@ -24,6 +24,8 @@ import { Wallet } from './components/User/wallet/wallet.component';
 import { WalletContext } from './context/wallet';
 import { TwitterWalletContext } from './context/twitterWallet';
 import { TwitterPoints } from './components/Activist/twitterPoints/twitterPoints.component';
+import { RegisterCompany } from './components/Business/registerCompany/registerCompany.component';
+import { PurchaseWithPoints } from './components/Activist/purchaseWithPoints/purchaseWithPoints.component';
 
 function App() {
   const [role, setRole] = useState([]);
@@ -31,7 +33,7 @@ function App() {
   const [productsList, setProductsList] = useState([]);
   const { isAuthenticated, isLoading } = useAuth0();
   const [wallet, setWallet] = useState('');
-  const [points, setPoints] = useState('0');
+  const [points, setPoints] = useState(0);
 
   if (isLoading) {
     return (
@@ -108,6 +110,14 @@ function App() {
                       <Route
                         path='/pointes'
                         element={<TwitterPoints></TwitterPoints>}
+                      ></Route>
+                      <Route
+                        path='/registerCompany'
+                        element={<RegisterCompany></RegisterCompany>}
+                      ></Route>
+                      <Route
+                        path='/purchaseWithPoints'
+                        element={<PurchaseWithPoints></PurchaseWithPoints>}
                       ></Route>
                       <Route
                         path='*'

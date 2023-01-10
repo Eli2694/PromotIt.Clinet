@@ -70,7 +70,7 @@ export const getCampaignID = async (ProductID) => {
   }
 };
 
-export const postCampaignDonation = async (CampaignID, unitPrice) => {
+export const postCampaignDonationAmount = async (CampaignID, unitPrice) => {
   if (!CampaignID || !unitPrice) {
     alert('Campaign Donation Amount was not successfully Updated');
     return;

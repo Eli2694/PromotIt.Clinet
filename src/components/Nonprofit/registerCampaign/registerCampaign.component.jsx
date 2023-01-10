@@ -10,7 +10,6 @@ export const RegisterCampaign = () => {
   const [campaginHashtag, setCampaignHashtag] = useState();
   const [donationAmount, setDonationAmount] = useState('0.00');
   const { user } = useAuth0();
-  const [FullName] = useState(user.name);
   const [Email] = useState(user.email);
   const { role } = useContext(RoleContext);
 
@@ -21,7 +20,6 @@ export const RegisterCampaign = () => {
       campaignName,
       campaignWebsite,
       campaginHashtag,
-      FullName,
       Email,
       donationAmount,
     };
@@ -32,6 +30,9 @@ export const RegisterCampaign = () => {
     return (
       <div className='register'>
         <h2>What Campaign Are You Creating?</h2>
+        <h4>
+          Before Creating A Campaign You Have To Register Your Association!!!
+        </h4>
         <form onSubmit={handleSubmitCampagin}>
           <label>Campaign Name</label>
           <input
@@ -47,7 +48,7 @@ export const RegisterCampaign = () => {
               setCampaignHashtag(e.target.value.replace(/'/g, ''))
             }
           />
-          <label>Campaign Website</label>
+          <label>Campaign Website : require https://</label>
           <input
             type='text'
             required

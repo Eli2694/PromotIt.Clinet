@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +7,10 @@ import { ProductIdContext } from '../../../context/productID.context';
 import { RoleContext } from '../../../context/role.context';
 import { TwitterWalletContext } from '../../../context/twitterWallet';
 import { WalletContext } from '../../../context/wallet';
-import { getProductId } from '../../../services/Business.services';
+import {
+  getBusinessCompanyName,
+  getProductId,
+} from '../../../services/Business.services';
 
 export const UsersCampaignProducts = () => {
   const { productsList } = useContext(ProductsListContext);
@@ -15,21 +19,37 @@ export const UsersCampaignProducts = () => {
   const { wallet } = useContext(WalletContext);
   const { role } = useContext(RoleContext);
   const { points } = useContext(TwitterWalletContext);
+  const { user } = useAuth0();
 
   const handleBuyProduct = async (CampaignId, productName, unitPrice) => {
-    try {
-      let id = await getProductId(CampaignId, productName);
-      let resolvedId = await id;
-      console.log(resolvedId);
-      setProductId(resolvedId);
-      navigate('/buyerForm', {
-        state: {
-          unitPrice,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    let id = await getProductId(CampaignId, productName);
+    let resolvedId = await id;
+    console.log(resolvedId);
+    setProductId(resolvedId);
+    navigate('/buyerForm', {
+      state: {
+        unitPrice,
+      },
+    });
+  };
+
+  const handleBuyProductWithPoints = async (
+    CampaignId,
+    productName,
+    unitPrice
+  ) => {
+    let id = await getProductId(CampaignId, productName);
+    let productId = await id;
+    let companyName = await getBusinessCompanyName(productId);
+    setProductId(productId);
+    console.log(companyName);
+
+    navigate('/purchaseWithPoints', {
+      state: {
+        unitPrice,
+        companyName,
+      },
+    });
   };
 
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {
@@ -97,6 +117,7 @@ export const UsersCampaignProducts = () => {
           productsList.map((product) => {
             let { productName, unitPrice, unitsInStock, CampaignId, imageURL } =
               product;
+
             return (
               <Card className='card'>
                 <Card.Img
@@ -112,6 +133,7 @@ export const UsersCampaignProducts = () => {
                   <Card.Text>
                     <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
                     <p>Units In Stock: {unitsInStock}</p>
+                    <p>Campaign ID For Donation: {CampaignId}</p>
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
@@ -133,12 +155,16 @@ export const UsersCampaignProducts = () => {
                   )}
 
                   {unitsInStock > 0 &&
-                  parseFloat(unitPrice) <= parseFloat(points) ? (
+                  parseInt(unitPrice) <= parseInt(points) ? (
                     <Button
                       className='btn'
-                      variant='Secondary'
+                      variant='warning'
                       onClick={() =>
-                        handleBuyProduct(CampaignId, productName, unitPrice)
+                        handleBuyProductWithPoints(
+                          CampaignId,
+                          productName,
+                          unitPrice
+                        )
                       }
                     >
                       Buy With Points
@@ -151,13 +177,7 @@ export const UsersCampaignProducts = () => {
 
                   {unitsInStock > 0 &&
                   parseFloat(unitPrice) <= parseFloat(points) ? (
-                    <Button
-                      className='btn'
-                      variant='success'
-                      onClick={() =>
-                        handleBuyProduct(CampaignId, productName, unitPrice)
-                      }
-                    >
+                    <Button className='btn' variant='success'>
                       Donate
                     </Button>
                   ) : (

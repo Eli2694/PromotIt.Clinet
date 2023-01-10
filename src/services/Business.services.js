@@ -135,3 +135,32 @@ export const ConfirmOrder = async (orderId, Email) => {
     console.error(error);
   }
 };
+
+export const RegisCompany = async (Company) => {
+  if (!Company) {
+    alert('Company is required');
+    return;
+  }
+  try {
+    console.log(Company);
+    await axios.post(`${businessApi}REGISTER`, Company);
+    alert('Association successfully stored');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBusinessCompanyName = async (productId) => {
+  if (!productId) {
+    alert('Problem in getBusinessCompanyName services');
+    return;
+  }
+  try {
+    let results = await fetch(`${businessApi}GETCOMPANYNAME/${productId}`);
+    let productID = await results.json();
+
+    return productID;
+  } catch (error) {
+    console.error(error);
+  }
+};

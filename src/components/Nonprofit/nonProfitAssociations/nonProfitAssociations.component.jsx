@@ -32,7 +32,7 @@ export const NonProfitAssociations = () => {
         <input
           type='text'
           required
-          onChange={(e) => setAssociationName(e.target.value)}
+          onChange={(e) => setAssociationName(e.target.value.replace(/'/g, ''))}
         />
         <label>Association Email</label>
         <input
@@ -40,11 +40,13 @@ export const NonProfitAssociations = () => {
           required
           onChange={(e) => setAssociationEmail(e.target.value)}
         />
-        <label>Association Website</label>
+        <label>Association Website : require https://</label>
         <input
           type='text'
           required
-          onChange={(e) => setAssociationWebsite(e.target.value)}
+          onChange={(e) =>
+            setAssociationWebsite(e.target.value.replace(/'/g, ''))
+          }
         />
         <button>Add Association</button>
       </form>

@@ -67,6 +67,9 @@ export const Dashboard = () => {
         <Link to='/' className='link'>
           Home
         </Link>
+        <Link to='/registerCompany' className='link'>
+          Register Company
+        </Link>
         <Link to='/wallet' className='link'>
           Wallet
         </Link>

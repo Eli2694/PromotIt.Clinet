@@ -5,34 +5,26 @@
 }
 
 /* create new blog form */
-.register {
+.create {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
 
-.register label {
+.create label {
   text-align: left;
   display: block;
 }
 
-.register h2 {
+.create h2 {
   font-size: 20px;
   text-decoration: underline;
-  color: rgb(22, 144, 181);
+  color: #f1356d;
   margin-bottom: 30px;
   margin-top: 20px;
 }
 
-.register h4 {
-  font-size: 15px;
-  text-decoration: underline;
-  color: rgb(181, 62, 22);
-  margin-bottom: 30px;
-  margin-top: 20px;
-}
-
-.register input {
+.create input {
   width: 100%;
   padding: 6px 10px;
   margin: 10px 0;
@@ -41,8 +33,8 @@
   display: block;
 }
 
-.register button {
-  background: rgb(72, 81, 91);
+.create button {
+  background: #f1356d;
   color: #fff;
   border: 0;
   padding: 8px;

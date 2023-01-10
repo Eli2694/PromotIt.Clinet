@@ -2,21 +2,21 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductIdContext } from '../../../context/productID.context';
-import { WalletContext } from '../../../context/wallet';
+import { TwitterWalletContext } from '../../../context/twitterWallet';
 import {
-  getCampaignID,
-  postCampaignDonation,
-  postCampaignDonationAmount,
-} from '../../../services/Campaigns.services';
+  DecreaseActivistPointsAfterBuy,
+  sendTwitterMessage,
+} from '../../../services/Activist.services';
+
 import {
   decreaseUnitsInStockByOne,
-  DecreaseUserMoneyAfterBuy,
   getUserID,
   postOrderInfo,
 } from '../../../services/Users.services';
-import './buyerForm.css';
 
-export const BuyerForm = () => {
+export const PurchaseWithPoints = () => {
+  const { points, setPoints } = useContext(TwitterWalletContext);
+  const [username, setUsername] = useState();
   const [userId, setUserId] = useState();
   const { user } = useAuth0();
   const navigate = useNavigate();
@@ -26,10 +26,11 @@ export const BuyerForm = () => {
   const [postalCode, setPostalCode] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const { productId } = useContext(ProductIdContext);
-  const { wallet, setWallet } = useContext(WalletContext);
   const location = useLocation();
 
-  const { unitPrice } = location.state ? location.state : { unitPrice: null };
+  const { unitPrice, companyName } = location.state
+    ? location.state
+    : { unitPrice: null, companyName: null };
 
   const ReceiveUserId = async () => {
     let id = getUserID(user.email);
@@ -37,9 +38,8 @@ export const BuyerForm = () => {
     setUserId(resolvedId);
   };
 
-  const handlePurchase = async (e) => {
+  const handlePurchaseByPoints = async (e) => {
     e.preventDefault();
-
     let order = {
       userId,
       productId,
@@ -49,16 +49,16 @@ export const BuyerForm = () => {
       postalCode,
       phoneNumber,
     };
-    let campaignID = await getCampaignID(productId);
-    await postCampaignDonationAmount(campaignID, unitPrice);
+    //let campaignID = await getCampaignID(productId);
     await postOrderInfo(order);
     await decreaseUnitsInStockByOne(productId);
-    let UserMoneyAfterPurchase = parseFloat(wallet) - parseFloat(unitPrice);
-    console.log(UserMoneyAfterPurchase);
 
+    let UserPointsAfterPurchase = parseInt(points) - parseInt(unitPrice);
     let Email = user.email;
-    await DecreaseUserMoneyAfterBuy(unitPrice, Email);
-    setWallet(UserMoneyAfterPurchase.toString());
+    let dropPoints = parseInt(unitPrice);
+    await DecreaseActivistPointsAfterBuy(dropPoints, Email);
+    await sendTwitterMessage(username, companyName);
+    setPoints(UserPointsAfterPurchase);
     navigate('/');
   };
 
@@ -69,7 +69,14 @@ export const BuyerForm = () => {
   return (
     <div className='purchase'>
       <h2>Buyer Details</h2>
-      <form onSubmit={handlePurchase}>
+      <form onSubmit={handlePurchaseByPoints}>
+        <label>Twitter Username</label>
+        <input
+          type='text'
+          required
+          placeholder='Twitter username without @'
+          onChange={(e) => setUsername(e.target.value.replace(/'/g, ''))}
+        />
         <label>Country</label>
         <input
           type='text'

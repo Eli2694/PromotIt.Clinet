@@ -4,3 +4,68 @@
   color: #333;
   font-weight: bold;
 }
+
+main {
+  width: 100%;
+  background-color: rgb(193, 172, 234) !important;
+}
+
+body {
+  background-color: rgb(193, 172, 234) !important;
+}
+
+span {
+  color: rgb(12, 12, 236);
+}
+
+/* create new blog form */
+.Twitter {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.Twitter label {
+  text-align: left;
+  display: block;
+}
+
+.Twitter h2 {
+  font-size: 30px;
+  text-decoration: underline;
+  color: #f1356d;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.Twitter h5 {
+  text-align: center;
+  font-style: italic;
+}
+
+.Twitter input {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.Twitter button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.Twitter p {
+  font-size: 15px;
+  margin: 2;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
