@@ -12,8 +12,8 @@ export const GetCampaignsListForBusiness = async () => {
 };
 
 export const Donate = async (product) => {
-  if (!product) {
-    alert('The donation was not successful');
+  if (product === undefined) {
+    alert('error: Donate - Business Product');
     return;
   }
   try {
@@ -26,8 +26,8 @@ export const Donate = async (product) => {
 };
 
 export const getCampaignProducts = async (ID, Email) => {
-  if (!ID || !Email) {
-    alert('Getting the campaigns was not successful');
+  if (ID === undefined || Email === undefined) {
+    alert('error: getCampaignProducts - Business services');
     return;
   }
   try {
@@ -41,8 +41,8 @@ export const getCampaignProducts = async (ID, Email) => {
 };
 
 export const getCProducts = async (ID) => {
-  if (!ID) {
-    alert('Getting products was not successful');
+  if (ID === undefined) {
+    alert('Getting products was not successful  - Business services');
     return;
   }
   try {
@@ -56,7 +56,7 @@ export const getCProducts = async (ID) => {
 };
 
 export const delProduct = async (campaignId, productName) => {
-  if (!campaignId || !productName) {
+  if (campaignId === undefined || productName === undefined) {
     alert(
       'Deleting product was not successful because the campaign ID is invalid or the product name is invalid'
     );
@@ -72,7 +72,7 @@ export const delProduct = async (campaignId, productName) => {
 };
 
 export const getProductId = async (CampaignId, productName) => {
-  if (!CampaignId || !productName) {
+  if (CampaignId === undefined || productName === undefined) {
     alert(
       'Getting product ID not successful because the campaign ID is invalid or the product name is invalid'
     );
@@ -91,23 +91,26 @@ export const getProductId = async (CampaignId, productName) => {
 };
 
 export const UpdProduct = async (product) => {
-  if (!product) {
-    alert('Updating product was not successful because product was not found');
+  if (product === undefined) {
+    alert(
+      'Updating product was not successful because product was not found - Business Services'
+    );
     return;
   }
   console.log(product);
+
   try {
     await axios.post(`${businessApi}Update`, product);
-    alert('product successfully updated');
+    alert('product successfully updated - Business Services');
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getOrdersOfMyProduct = async (Email) => {
-  if (!Email) {
+  if (Email === undefined) {
     alert(
-      'Getting orders of my products  was not successful because email was not found'
+      'Getting orders of my products  was not successful because email was not found - Business Services'
     );
     return;
   }
@@ -122,9 +125,9 @@ export const getOrdersOfMyProduct = async (Email) => {
 };
 
 export const ConfirmOrder = async (orderId, Email) => {
-  if (!orderId || !Email) {
+  if (orderId === undefined || Email === undefined) {
     alert(
-      'Confirmation of order was not successful because the orderId was not provided or the email was not provided'
+      'Confirmation of order was not successful because the orderId was not provided or the email was not provided - Business Services'
     );
     return;
   }
@@ -137,8 +140,8 @@ export const ConfirmOrder = async (orderId, Email) => {
 };
 
 export const RegisCompany = async (Company) => {
-  if (!Company) {
-    alert('Company is required');
+  if (Company === undefined) {
+    alert('error - Register company');
     return;
   }
   try {
@@ -151,8 +154,8 @@ export const RegisCompany = async (Company) => {
 };
 
 export const getBusinessCompanyName = async (productId) => {
-  if (!productId) {
-    alert('Problem in getBusinessCompanyName services');
+  if (productId === undefined) {
+    alert('Problem in getBusinessCompanyName  - Business Services');
     return;
   }
   try {

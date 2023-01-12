@@ -11,6 +11,7 @@ import {
   getBusinessCompanyName,
   getProductId,
 } from '../../../services/Business.services';
+import './usersCampaignProducts.css';
 
 export const UsersCampaignProducts = () => {
   const { productsList } = useContext(ProductsListContext);
@@ -68,19 +69,23 @@ export const UsersCampaignProducts = () => {
               return (
                 <Card className='card'>
                   <Card.Img
+                    className='img'
                     variant='top'
                     src={imageURL}
                     style={{
                       maxWidth: '200px',
-                      maxHeight: '250px',
+                      maxHeight: '200px',
                     }}
                   />
-                  <Card.Body>
-                    <Card.Title>{productName}</Card.Title>
-                    <Card.Text>
+                  <Card.Body className='body'>
+                    <Card.Title className='title'>{productName}</Card.Title>
+                    <Card.Text className='text'>
                       <p>
-                        Potential Donation:{' '}
-                        {parseFloat(unitPrice) * parseInt(unitsInStock)}$
+                        Potential Donation:
+                        {(
+                          parseFloat(unitPrice) * parseInt(unitsInStock)
+                        ).toFixed(2)}
+                        $
                       </p>
                       <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
                       <p>Units In Stock: {unitsInStock}</p>
@@ -121,16 +126,17 @@ export const UsersCampaignProducts = () => {
             return (
               <Card className='card'>
                 <Card.Img
+                  className='img'
                   variant='top'
                   src={imageURL}
                   style={{
                     maxWidth: '200px',
-                    maxHeight: '300px',
+                    maxHeight: '200px',
                   }}
                 />
-                <Card.Body>
-                  <Card.Title>{productName}</Card.Title>
-                  <Card.Text>
+                <Card.Body className='body'>
+                  <Card.Title className='title'>{productName}</Card.Title>
+                  <Card.Text className='text'>
                     <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
                     <p>Units In Stock: {unitsInStock}</p>
                     <p>Campaign ID For Donation: {CampaignId}</p>
@@ -202,16 +208,17 @@ export const UsersCampaignProducts = () => {
             return (
               <Card className='card'>
                 <Card.Img
+                  className='img'
                   variant='top'
                   src={imageURL}
                   style={{
                     maxWidth: '200px',
-                    maxHeight: '250px',
+                    maxHeight: '200px',
                   }}
                 />
-                <Card.Body>
-                  <Card.Title>{productName}</Card.Title>
-                  <Card.Text>
+                <Card.Body className='body'>
+                  <Card.Title className='title'>{productName}</Card.Title>
+                  <Card.Text className='text'>
                     <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
                     <p>Units In Stock: {unitsInStock}</p>
                   </Card.Text>

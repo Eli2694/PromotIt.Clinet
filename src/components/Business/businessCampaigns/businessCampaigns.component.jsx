@@ -1,15 +1,24 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { RoleContext } from '../../../context/role.context';
 import { GetCampaignsListForBusiness } from '../../../services/Business.services';
+import { UpdateUserRole } from '../../../services/Users.services';
 import { BusinessRow } from '../businessRow/businessRow.component';
 
 export const BusinessCampaigns = () => {
   const { role } = useContext(RoleContext);
   const navigate = useNavigate();
   const [campaignsList, setCampaignsList] = useState([]);
-  //const [productsOfOneCampaign,setProductsOfOneCampaign] = useState([]);
+
+  const { user } = useAuth0();
+
+  const UpdateRole = async () => {
+    let userRole = role[0].name;
+    let email = user.email;
+    await UpdateUserRole(userRole, email);
+  };
 
   const DonateToCampaign = (CampaignId) => {
     navigate('/DonateProduct', {
@@ -34,6 +43,7 @@ export const BusinessCampaigns = () => {
 
   useEffect(() => {
     ListOfCampaigns();
+    UpdateRole();
   }, []);
 
   if (role.find((role) => role.name === 'BusinessRepresentative')) {

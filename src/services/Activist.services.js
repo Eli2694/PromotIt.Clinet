@@ -2,8 +2,8 @@ import { activistApi } from '../const/api';
 import axios from 'axios';
 
 export const getUserTwitterID = async (username) => {
-  if (!username) {
-    alert('username is invalid');
+  if (username === undefined) {
+    alert('Error: Invalid username - getUserTwitterID');
     return;
   }
   try {
@@ -17,7 +17,7 @@ export const getUserTwitterID = async (username) => {
 };
 
 export const getActivistPoints = async (Email) => {
-  if (!Email) {
+  if (Email === undefined) {
     alert('getActivistPoints error');
     return;
   }
@@ -32,7 +32,12 @@ export const getActivistPoints = async (Email) => {
 };
 
 export const getUserTweets = async (since, username, hashtag, website) => {
-  if (!username || !since || !website || !since) {
+  if (
+    username === undefined ||
+    since === undefined ||
+    website === undefined ||
+    since === undefined
+  ) {
     alert('getUserTweets error');
     console.log(username, since);
     return;
@@ -50,8 +55,7 @@ export const getUserTweets = async (since, username, hashtag, website) => {
 };
 
 export const ActivistPromoteCampaign = async (CampaignId, Email) => {
-  console.log(CampaignId, Email);
-  if (!CampaignId || !Email) {
+  if (CampaignId === undefined || Email === undefined) {
     alert('ActivistPromoteCampaign error');
     return;
   }
@@ -64,7 +68,7 @@ export const ActivistPromoteCampaign = async (CampaignId, Email) => {
 
 export const InitiateActivistPoints = async (Email) => {
   console.log(Email);
-  if (!Email) {
+  if (Email === undefined) {
     alert('InitiateActivistPoints error');
     return;
   }
@@ -76,7 +80,6 @@ export const InitiateActivistPoints = async (Email) => {
 };
 
 export const updateUserPoints = async (Email, Points) => {
-  console.log(Email, Points);
   if (Email === undefined || Points === undefined) {
     alert('updateUserPoints error');
     return;
@@ -108,7 +111,7 @@ export const updateTweetsAmountPerCampaign = async (
 };
 
 export const DecreaseActivistPointsAfterBuy = async (dropPoints, Email) => {
-  if (!Email || !dropPoints) {
+  if (Email === undefined || dropPoints === undefined) {
     alert('error DecreaseActivistPointsAfterBuy');
     return;
   }
@@ -122,7 +125,7 @@ export const DecreaseActivistPointsAfterBuy = async (dropPoints, Email) => {
 //sendTwitterMessage
 
 export const sendTwitterMessage = async (username, companyName) => {
-  if (!username || !companyName) {
+  if (username === undefined || companyName === undefined) {
     alert('error sendTwitterMessage');
     return;
   }

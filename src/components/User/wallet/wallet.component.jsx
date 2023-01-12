@@ -22,7 +22,9 @@ export const Wallet = () => {
 
   return (
     <div className='productUpdate'>
-      <h2>Current Ballance {parseFloat(wallet).toFixed(2)}$ </h2>
+      <h2 className='money-title'>
+        Current Ballance {parseFloat(wallet).toFixed(2)}${' '}
+      </h2>
       <form onSubmit={handleAddMoney}>
         <label>Adding money to the previous amount in the wallet</label>
         <input

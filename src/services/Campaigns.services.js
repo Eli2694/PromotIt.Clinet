@@ -2,20 +2,20 @@ import axios from 'axios';
 import { campaignApi } from '../const/api';
 
 export const RegisCampaign = async (Campaign) => {
-  if (!Campaign) {
-    alert('Campaign  was not successfully registered');
+  if (Campaign === undefined) {
+    alert('Campaign  was not successfully registered - Campaign');
     return;
   }
   try {
     await axios.post(`${campaignApi}ADD`, Campaign);
-    alert('campagin successfully stored');
+    alert('Campaign is successfully stored');
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getPersonalCampaigns = async (Email) => {
-  if (!Email) {
+  if (Email === undefined) {
     alert('Getting Personal Campaigns was not successful');
     return;
   }
@@ -29,35 +29,35 @@ export const getPersonalCampaigns = async (Email) => {
 };
 
 export const delCampaign = async (ID) => {
-  if (!ID) {
+  if (ID === undefined) {
     alert('Campaign  was not successfully Deleted');
     return;
   }
   try {
     let endpoint = `${campaignApi}DELETE/${ID}`;
     await axios.delete(endpoint);
-    alert('campagin successfully deleted');
+    alert('Campaign successfully deleted');
   } catch (error) {
     console.error(error);
   }
 };
 
 export const UpdaCampaign = async (UpdatedCampaign) => {
-  if (!UpdatedCampaign) {
+  if (UpdatedCampaign === undefined) {
     alert('Campaign  was not successfully Updated');
     return;
   }
 
   try {
     await axios.post(`${campaignApi}Update`, UpdatedCampaign);
-    alert('campagin successfully updated');
+    alert('Campaign successfully updated');
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getCampaignID = async (ProductID) => {
-  if (!ProductID) {
+  if (ProductID === undefined) {
     alert('Getting  Campaigns ID was not successful');
     return;
   }
@@ -71,14 +71,13 @@ export const getCampaignID = async (ProductID) => {
 };
 
 export const postCampaignDonationAmount = async (CampaignID, unitPrice) => {
-  if (!CampaignID || !unitPrice) {
+  if (CampaignID === undefined || unitPrice === undefined) {
     alert('Campaign Donation Amount was not successfully Updated');
     return;
   }
 
   try {
     await axios.post(`${campaignApi}DONATIONAMOUNT/${CampaignID}/${unitPrice}`);
-    alert('Donation to campaign was successfully updated');
   } catch (error) {
     console.error(error);
   }

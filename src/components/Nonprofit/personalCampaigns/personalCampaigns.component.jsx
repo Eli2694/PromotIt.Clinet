@@ -7,14 +7,22 @@ import {
   delCampaign,
   getPersonalCampaigns,
 } from '../../../services/Campaigns.services';
+import { UpdateUserRole } from '../../../services/Users.services';
 import { PersonalCampRowDisplay } from '../personalCampRowDisplay/personalCampRowDisplay.component';
 
 export const PersonalCampaigns = () => {
   const [campaigns, setCampaings] = useState([]);
   const navigate = useNavigate();
-  const { user } = useAuth0();
+
   const [Email] = useState(user.email);
   const { role } = useContext(RoleContext);
+  const { user } = useAuth0();
+
+  const UpdateRole = async () => {
+    let userRole = role[0].name;
+    let email = user.email;
+    await UpdateUserRole(userRole, email);
+  };
 
   const updateCampaign = (
     CampaignId,
@@ -47,6 +55,7 @@ export const PersonalCampaigns = () => {
 
   useEffect(() => {
     ListOfPersonalCampaigns();
+    UpdateRole();
   }, []);
 
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {

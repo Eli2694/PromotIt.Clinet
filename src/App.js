@@ -26,6 +26,7 @@ import { TwitterWalletContext } from './context/twitterWallet';
 import { TwitterPoints } from './components/Activist/twitterPoints/twitterPoints.component';
 import { RegisterCompany } from './components/Business/registerCompany/registerCompany.component';
 import { PurchaseWithPoints } from './components/Activist/purchaseWithPoints/purchaseWithPoints.component';
+import { UserReport } from './components/Owner/userReport/userReport.component';
 
 function App() {
   const [role, setRole] = useState([]);
@@ -118,6 +119,10 @@ function App() {
                       <Route
                         path='/purchaseWithPoints'
                         element={<PurchaseWithPoints></PurchaseWithPoints>}
+                      ></Route>
+                      <Route
+                        path='/userReport'
+                        element={<UserReport></UserReport>}
                       ></Route>
                       <Route
                         path='*'

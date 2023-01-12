@@ -1,10 +1,13 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductsListContext } from '../../../context/listOfProducts';
+
 import { getCProducts } from '../../../services/Business.services';
 import { getFullListOfCampaigns } from '../../../services/Users.services';
 import { HomePageRow } from '../homePageRow/homePageRow.components';
+import './homePage.css';
 
 export const HomePage = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -29,7 +32,7 @@ export const HomePage = () => {
   return (
     <main>
       {' '}
-      <Table striped bordered hover>
+      <Table striped bordered hover className='table'>
         <thead>
           <tr>
             <th>Association</th>

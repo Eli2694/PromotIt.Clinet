@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { RoleContext } from '../../../context/role.context';
 import { TwitterWalletContext } from '../../../context/twitterWallet';
 import {
   ActivistPromoteCampaign,
@@ -11,7 +12,10 @@ import {
   updateTweetsAmountPerCampaign,
   updateUserPoints,
 } from '../../../services/Activist.services';
-import { getFullListOfCampaigns } from '../../../services/Users.services';
+import {
+  getFullListOfCampaigns,
+  UpdateUserRole,
+} from '../../../services/Users.services';
 import './twitterPoints.css';
 
 export const TwitterPoints = () => {
@@ -26,6 +30,13 @@ export const TwitterPoints = () => {
   //const [countTweets, setCountTweets] = useState();
   const [buttonPress, setButtonPress] = useState(true);
   const { user } = useAuth0();
+  const { role } = useContext(RoleContext);
+
+  const UpdateRole = async () => {
+    let userRole = role[0].name;
+    let email = user.email;
+    await UpdateUserRole(userRole, email);
+  };
 
   const handleCampaignState = async (
     CampaignId,
@@ -53,6 +64,7 @@ export const TwitterPoints = () => {
 
   useEffect(() => {
     FullInfoAboutCampaigns();
+    UpdateRole();
   }, []);
 
   const finalizeUsernameChange = async (e) => {
@@ -160,9 +172,11 @@ export const TwitterPoints = () => {
               const cWebsite = urlObject.hostname;
 
               return (
-                <Card className='card'>
+                <Card className='twitter-card'>
                   <Card.Body>
-                    <Card.Title>{campaignName}</Card.Title>
+                    <Card.Title className='Twitter-campaignTitle'>
+                      {campaignName}
+                    </Card.Title>
                     <Card.Text>
                       Campaign Hashtag: <span>#{campaginHashtag}</span>
                       <br />

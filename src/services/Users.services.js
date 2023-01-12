@@ -2,10 +2,14 @@ import axios from 'axios';
 import { api, userApi } from '../const/api';
 
 export const checkIfUserExistsInDB = async (user) => {
-  if (user === null) {
-    alert('Checking if user exists in the database was unsuccessful');
+  if (user === undefined) {
+    alert('Checking if user exists in the database was unsuccessful - User');
   }
-  await axios.post(`${api}LoginUsers`, user);
+  try {
+    await axios.post(`${api}LoginUsers`, user);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getFullListOfCampaigns = async () => {
@@ -19,6 +23,10 @@ export const getFullListOfCampaigns = async () => {
 };
 
 export const getUserID = async (Email) => {
+  if (Email === undefined) {
+    alert('Error in initialize wallet - User');
+    return;
+  }
   try {
     let results = await fetch(`${userApi}GETID/${Email}`);
     let userID = await results.json();
@@ -29,22 +37,22 @@ export const getUserID = async (Email) => {
 };
 
 export const postOrderInfo = async (order) => {
-  if (order === null || order === undefined) {
-    alert('Error in post order info');
+  if (order === undefined) {
+    alert('Error in post order info - User');
     return;
   }
   try {
     console.log(order);
     await axios.post(`${userApi}Order`, order);
-    alert('Buyer Inforamtion successfully added');
+    alert('successfully Purchase');
   } catch (error) {
     console.error(error);
   }
 };
 
 export const decreaseUnitsInStockByOne = async (ID) => {
-  if (ID === null || ID === undefined) {
-    alert('Error in decrease Units In Stock By One');
+  if (ID === undefined) {
+    alert('Error in decrease Units In Stock By One - Users');
     return;
   }
 
@@ -57,8 +65,8 @@ export const decreaseUnitsInStockByOne = async (ID) => {
 };
 
 export const InitializeWallet = async (Email) => {
-  if (Email === null || Email === undefined) {
-    alert('Error in initialize wallet');
+  if (Email === undefined) {
+    alert('Error in initialize wallet - User');
     return;
   }
 
@@ -71,11 +79,10 @@ export const InitializeWallet = async (Email) => {
 };
 
 export const getUserMoney = async (Email) => {
-  if (Email === null || Email === undefined) {
-    alert('Error in getting user money from database');
+  if (Email === undefined) {
+    alert('Error getUserMoney - User');
     return;
   }
-
   try {
     let results = await fetch(`${userApi}GETUSERMONEY/${Email}`);
     let userMoney = await results.json();
@@ -86,8 +93,8 @@ export const getUserMoney = async (Email) => {
 };
 
 export const AddMoneyToUser = async (Money, Email) => {
-  if (Email === null || Email === undefined || !Money) {
-    alert('Error in adding user money to database');
+  if (Email === undefined || Money === undefined) {
+    alert('Error AddMoneyToUser - users');
     return;
   }
 
@@ -100,13 +107,27 @@ export const AddMoneyToUser = async (Money, Email) => {
 };
 
 export const DecreaseUserMoneyAfterBuy = async (Money, Email) => {
-  if (Email === null || Email === undefined || !Money) {
-    alert('Error in decreasing user money after buying');
+  if (Email === undefined || Money === undefined) {
+    alert('Error DecreaseUserMoneyAfterBuy - Users');
     return;
   }
 
   try {
     let endpoint = `${userApi}DECREASEMONEY/${Money}/${Email}`;
+    await axios.post(endpoint);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const UpdateUserRole = async (Role, Email) => {
+  if (Email === undefined || Role === undefined) {
+    alert('Error UpdateUserRole - Users');
+    return;
+  }
+
+  try {
+    let endpoint = `${userApi}ROLES/${Role}/${Email}`;
     await axios.post(endpoint);
   } catch (error) {
     console.error(error);

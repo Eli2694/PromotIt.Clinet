@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import './homePageRow.css';
 
 export const HomePageRow = ({
   AssociationName,
@@ -14,11 +15,15 @@ export const HomePageRow = ({
     <tr>
       <td>{AssociationName}</td>
       <td>
-        <a href={AssociationWebsite}>{AssociationWebsite}</a>
+        <a href={AssociationWebsite} target='_blank' className='web-link'>
+          {AssociationWebsite}
+        </a>
       </td>
       <td>{campaignName}</td>
       <td>
-        <a href={campaignWebsite}>{campaignWebsite}</a>
+        <a href={campaignWebsite} target='_blank' className='web-link'>
+          {campaignWebsite}
+        </a>
       </td>
       <td>{campaginHashtag}</td>
       <td>{parseFloat(donationAmount).toFixed(2)}$</td>

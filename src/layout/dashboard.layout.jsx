@@ -31,12 +31,12 @@ export const Dashboard = () => {
     }
   };
 
-  const InsertUserToDB = () => {
+  const InsertUserToDB = async () => {
     let logInUser = {
       FullName: user.name,
       Email: user.email,
     };
-    checkIfUserExistsInDB(logInUser);
+    await checkIfUserExistsInDB(logInUser);
   };
 
   useEffect(() => {
@@ -51,6 +51,9 @@ export const Dashboard = () => {
         </Link>
         <Link to='/wallet' className='link'>
           Wallet
+        </Link>
+        <Link to='/userReport' className='link'>
+          Users Report
         </Link>
         <Link
           onClick={() => logout({ returnTo: window.location.origin })}
