@@ -14,22 +14,14 @@ export const HomePageRow = ({
   return (
     <tr>
       <td>{AssociationName}</td>
-      <td>
-        <a href={AssociationWebsite} target='_blank' className='web-link'>
-          {AssociationWebsite}
-        </a>
-      </td>
+      <td>{AssociationWebsite}</td>
       <td>{campaignName}</td>
-      <td>
-        <a href={campaignWebsite} target='_blank' className='web-link'>
-          {campaignWebsite}
-        </a>
-      </td>
+      <td>{campaignWebsite}</td>
       <td>{campaginHashtag}</td>
       <td>{parseFloat(donationAmount).toFixed(2)}$</td>
       <td>
         <Button onClick={handleProductsList} variant='light'>
-          See Campaign Product
+          See Campaign Products
         </Button>
       </td>
     </tr>

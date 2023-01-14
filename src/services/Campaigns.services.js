@@ -8,7 +8,6 @@ export const RegisCampaign = async (Campaign) => {
   }
   try {
     await axios.post(`${campaignApi}ADD`, Campaign);
-    alert('Campaign is successfully stored');
   } catch (error) {
     console.error(error);
   }
@@ -49,7 +48,7 @@ export const UpdaCampaign = async (UpdatedCampaign) => {
   }
 
   try {
-    await axios.post(`${campaignApi}Update`, UpdatedCampaign);
+    await axios.put(`${campaignApi}Update`, UpdatedCampaign);
     alert('Campaign successfully updated');
   } catch (error) {
     console.error(error);
@@ -77,7 +76,7 @@ export const postCampaignDonationAmount = async (CampaignID, unitPrice) => {
   }
 
   try {
-    await axios.post(`${campaignApi}DONATIONAMOUNT/${CampaignID}/${unitPrice}`);
+    await axios.put(`${campaignApi}DONATIONAMOUNT/${CampaignID}/${unitPrice}`);
   } catch (error) {
     console.error(error);
   }

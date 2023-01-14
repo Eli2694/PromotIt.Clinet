@@ -14,12 +14,14 @@ export const BusinessCampaigns = () => {
 
   const { user } = useAuth0();
 
+  //Update User role to Business Representative
   const UpdateRole = async () => {
     let userRole = role[0].name;
     let email = user.email;
     await UpdateUserRole(userRole, email);
   };
 
+  //Bring Campaign ID to Purchase form page with useNavigate hook
   const DonateToCampaign = (CampaignId) => {
     navigate('/DonateProduct', {
       state: {
@@ -28,6 +30,7 @@ export const BusinessCampaigns = () => {
     });
   };
 
+  //Business Representative need to see his the products he donated to be able to update or delete them.
   const SendCampaignIdToGetProducts = async (CampaignId) => {
     navigate('/BusinessRepProducts', {
       state: {
@@ -36,6 +39,7 @@ export const BusinessCampaigns = () => {
     });
   };
 
+  // Business Representative need to choose campaign and donate to it
   const ListOfCampaigns = async () => {
     let allCampaigns = await GetCampaignsListForBusiness();
     setCampaignsList(allCampaigns);
@@ -49,7 +53,6 @@ export const BusinessCampaigns = () => {
   if (role.find((role) => role.name === 'BusinessRepresentative')) {
     return (
       <>
-        <h1>List Of Campaigns</h1>
         <Table striped bordered hover>
           <thead>
             <tr>

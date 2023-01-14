@@ -11,12 +11,11 @@ import { UpdateUserRole } from '../../../services/Users.services';
 import { PersonalCampRowDisplay } from '../personalCampRowDisplay/personalCampRowDisplay.component';
 
 export const PersonalCampaigns = () => {
-  const [campaigns, setCampaings] = useState([]);
+  const [campaigns, setCampaigns] = useState([]);
   const navigate = useNavigate();
-
-  const [Email] = useState(user.email);
   const { role } = useContext(RoleContext);
   const { user } = useAuth0();
+  //const [Email] = useState(user.email);
 
   const UpdateRole = async () => {
     let userRole = role[0].name;
@@ -24,6 +23,7 @@ export const PersonalCampaigns = () => {
     await UpdateUserRole(userRole, email);
   };
 
+  //Collect info about campaign that will help me update its information
   const updateCampaign = (
     CampaignId,
     campaignName,
@@ -43,14 +43,16 @@ export const PersonalCampaigns = () => {
     });
   };
 
+  //Delete campaign from DB and receive updated list of personal campaigns
   const deleteCampaign = async (CampaignId) => {
     await delCampaign(CampaignId);
     await ListOfPersonalCampaigns();
   };
 
+  //Every Nonprofit user has its own campaigns
   const ListOfPersonalCampaigns = async () => {
-    let PersCampaigns = await getPersonalCampaigns(Email);
-    setCampaings(PersCampaigns);
+    let PersonalCampaigns = await getPersonalCampaigns(user.email);
+    setCampaigns(PersonalCampaigns);
   };
 
   useEffect(() => {
@@ -61,7 +63,6 @@ export const PersonalCampaigns = () => {
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {
     return (
       <>
-        <h1>Personal Campaigns</h1>
         <Table striped bordered hover>
           <thead>
             <tr>

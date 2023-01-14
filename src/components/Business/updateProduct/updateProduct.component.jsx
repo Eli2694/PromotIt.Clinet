@@ -15,6 +15,7 @@ export const UpdateProduct = () => {
   const [unitsInStock, setUnitsInStock] = useState('');
   const { productId } = useContext(ProductIdContext);
 
+  // useNavigate , useLocation
   const { productInfo } = location.state
     ? location.state
     : { productInfo: null };
@@ -27,6 +28,7 @@ export const UpdateProduct = () => {
       unitsInStock,
       productId,
     };
+    // product update in database
     await UpdProduct(pUpdate);
     navigate('/AllCampaignsForBusiness');
   };

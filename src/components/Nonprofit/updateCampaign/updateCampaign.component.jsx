@@ -13,10 +13,12 @@ export const UpdateCampaign = () => {
   const location = useLocation();
   const { role } = useContext(RoleContext);
 
+  // useNavigate, useLocation => help use the information from useNavigate
   const { CampaignId, campaignInfo } = location.state
     ? location.state
     : { CampaignId: null, campaignInfo: null };
 
+  //Update the campaign
   const handleUpdate = async (e) => {
     e.preventDefault();
     let cUpdate = {
@@ -29,11 +31,11 @@ export const UpdateCampaign = () => {
     navigate('/personalCampaigns');
   };
 
+  //.replace(/'/g, '') help to insert right string into database
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {
     return (
       <>
         <div className='campaign-info'>
-          {' '}
           <Card bg='info' style={{ width: '18rem' }}>
             <Card.Header>Campaign</Card.Header>
             <ListGroup variant='flush'>
@@ -41,7 +43,7 @@ export const UpdateCampaign = () => {
                 Campaign Name: {campaignInfo.campaignName.replace(/'/g, '')}
               </ListGroup.Item>
               <ListGroup.Item>
-                Campaign Hashtag:{' '}
+                Campaign Hashtag:
                 {campaignInfo.campaginHashtag.replace(/'/g, '')}
               </ListGroup.Item>
               <ListGroup.Item>

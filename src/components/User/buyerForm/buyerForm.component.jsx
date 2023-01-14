@@ -29,6 +29,7 @@ export const BuyerForm = () => {
   const { wallet, setWallet } = useContext(WalletContext);
   const location = useLocation();
 
+  // I need unitPrice for updating the amount of currency
   const { unitPrice } = location.state ? location.state : { unitPrice: null };
 
   const ReceiveUserId = async () => {
@@ -50,13 +51,17 @@ export const BuyerForm = () => {
       phoneNumber,
     };
     let campaignID = await getCampaignID(productId);
+    // Every time user buy a product, its money goes to the campaign
     await postCampaignDonationAmount(campaignID, unitPrice);
+    // save product order in database
     await postOrderInfo(order);
+    // decrease amount of units in stock of the product that was purchased
     await decreaseUnitsInStockByOne(productId);
     let UserMoneyAfterPurchase = parseFloat(wallet) - parseFloat(unitPrice);
     console.log(UserMoneyAfterPurchase);
 
     let Email = user.email;
+    // update user money after purchase
     await DecreaseUserMoneyAfterBuy(unitPrice, Email);
     setWallet(UserMoneyAfterPurchase.toString());
     navigate('/');

@@ -22,10 +22,10 @@ export const UsersCampaignProducts = () => {
   const { points } = useContext(TwitterWalletContext);
   const { user } = useAuth0();
 
+  // To by Product i need product id to create the right order of product
   const handleBuyProduct = async (CampaignId, productName, unitPrice) => {
     let id = await getProductId(CampaignId, productName);
     let resolvedId = await id;
-    console.log(resolvedId);
     setProductId(resolvedId);
     navigate('/buyerForm', {
       state: {
@@ -34,13 +34,16 @@ export const UsersCampaignProducts = () => {
     });
   };
 
+  //Activist can buy product with points
   const handleBuyProductWithPoints = async (
     CampaignId,
     productName,
     unitPrice
   ) => {
     let id = await getProductId(CampaignId, productName);
+    //product id help me find what company donated the product
     let productId = await id;
+    // I need business company name for the tweet about user purchase product with points
     let companyName = await getBusinessCompanyName(productId);
     setProductId(productId);
     console.log(companyName);

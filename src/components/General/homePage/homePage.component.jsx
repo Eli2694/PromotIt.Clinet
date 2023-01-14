@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ProductsListContext } from '../../../context/listOfProducts';
+import { TwitterWalletContext } from '../../../context/twitterWallet';
+import { getActivistPoints } from '../../../services/Activist.services';
 
 import { getCProducts } from '../../../services/Business.services';
 import { getFullListOfCampaigns } from '../../../services/Users.services';
@@ -12,12 +14,20 @@ import './homePage.css';
 export const HomePage = () => {
   const [campaigns, setCampaigns] = useState([]);
   const { setProductsList } = useContext(ProductsListContext);
+  const { setPoints } = useContext(TwitterWalletContext);
+  const { user } = useAuth0();
   const navigate = useNavigate();
 
   const handleCampaignProducts = async (CampaignId) => {
     let campaignProducts = await getCProducts(CampaignId);
     setProductsList(campaignProducts);
     navigate('/usersProducts');
+  };
+
+  const handleActivistPoints = async () => {
+    let Email = user.email;
+    let points = await getActivistPoints(Email);
+    setPoints(points);
   };
 
   const FullInfoAboutCampaigns = async () => {
@@ -27,6 +37,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     FullInfoAboutCampaigns();
+    handleActivistPoints();
   }, []);
 
   return (

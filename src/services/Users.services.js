@@ -58,7 +58,7 @@ export const decreaseUnitsInStockByOne = async (ID) => {
 
   try {
     let endpoint = `${userApi}UpdateStock/${ID}`;
-    await axios.post(endpoint);
+    await axios.put(endpoint);
   } catch (error) {
     console.error(error);
   }
@@ -100,7 +100,7 @@ export const AddMoneyToUser = async (Money, Email) => {
 
   try {
     let endpoint = `${userApi}ADDMONEY/${Money}/${Email}`;
-    await axios.post(endpoint);
+    await axios.put(endpoint);
   } catch (error) {
     console.error(error);
   }
@@ -114,7 +114,7 @@ export const DecreaseUserMoneyAfterBuy = async (Money, Email) => {
 
   try {
     let endpoint = `${userApi}DECREASEMONEY/${Money}/${Email}`;
-    await axios.post(endpoint);
+    await axios.put(endpoint);
   } catch (error) {
     console.error(error);
   }
@@ -128,7 +128,7 @@ export const UpdateUserRole = async (Role, Email) => {
 
   try {
     let endpoint = `${userApi}ROLES/${Role}/${Email}`;
-    await axios.post(endpoint);
+    await axios.put(endpoint);
   } catch (error) {
     console.error(error);
   }

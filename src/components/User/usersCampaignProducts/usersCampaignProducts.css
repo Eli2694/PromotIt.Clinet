@@ -27,3 +27,7 @@ p {
 .img {
   align-self: center;
 }
+
+.none {
+  color: white;
+}

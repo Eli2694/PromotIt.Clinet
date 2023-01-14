@@ -11,9 +11,7 @@ export const BusinessRow = ({
   return (
     <tr>
       <td>{name}</td>
-      <td>
-        <a href={website}>{website}</a>
-      </td>
+      <td>{website}</td>
       <td>{hashtag}</td>
       <td>
         <Button onClick={handleDonate} variant='light'>

@@ -12,10 +12,21 @@ export const RegisterCampaign = () => {
   const { user } = useAuth0();
   const [Email] = useState(user.email);
   const { role } = useContext(RoleContext);
+  const [websiteError, setWebsiteError] = useState('');
 
+  const handleWebsiteChange = (e) => {
+    const website = e.target.value;
+    if (!website.startsWith('https://')) {
+      setWebsiteError("Please include 'https://' in the website address");
+    } else {
+      setWebsiteError('');
+      setCampaignWebsite(website.replace(/'/g, ''));
+    }
+  };
+
+  //Register campaign
   const handleSubmitCampagin = (e) => {
     e.preventDefault();
-
     const campaign = {
       campaignName,
       campaignWebsite,
@@ -26,6 +37,7 @@ export const RegisterCampaign = () => {
     RegisCampaign(campaign);
   };
 
+  //Form for submitting campaign information for Nonprofit user
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {
     return (
       <div className='register'>
@@ -40,7 +52,7 @@ export const RegisterCampaign = () => {
             required
             onChange={(e) => setCampaignName(e.target.value.replace(/'/g, ''))}
           />
-          <label>Campaign Hashtag</label>
+          <label>Campaign Hashtag : without #</label>
           <input
             type='text'
             required
@@ -52,9 +64,8 @@ export const RegisterCampaign = () => {
           <input
             type='text'
             required
-            onChange={(e) =>
-              setCampaignWebsite(e.target.value.replace(/'/g, ''))
-            }
+            onChange={handleWebsiteChange}
+            placeholder={websiteError ? websiteError : 'https://'}
           />
 
           <button>Add Campaign</button>

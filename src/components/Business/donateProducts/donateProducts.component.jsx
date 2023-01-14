@@ -17,6 +17,7 @@ export const DonateProducts = () => {
 
   const { CampaignId } = location.state ? location.state : { CampaignId: null };
 
+  //donate product to specific campaign bu using the campaign id above
   const handleDonate = async (e) => {
     e.preventDefault();
     let Email = user.email;
@@ -32,6 +33,7 @@ export const DonateProducts = () => {
     navigate('/AllCampaignsForBusiness');
   };
 
+  // From to collect information about the Product
   if (role.find((role) => role.name === 'BusinessRepresentative')) {
     return (
       <div className='donate'>

@@ -21,12 +21,14 @@ export const UserReport = () => {
   const [nonprofitUser, setNonprofitUser] = useState([]);
   const [users, setUsers] = useState({});
 
+  // Update user role as the owner
   const UpdateRole = async () => {
     let userRole = role[0].name;
     let email = user.email;
     await UpdateUserRole(userRole, email);
   };
 
+  // Get Users Statistics
   const userStatistics = async () => {
     let statistics = await getUserStatistics();
     setUsers(statistics);
@@ -40,10 +42,6 @@ export const UserReport = () => {
     let Activist = await getActivistUsers();
     setActivistUser(Activist);
   };
-
-  // useEffect(() => {
-  //   listUsers();
-  // }, [userType]);
 
   useEffect(() => {
     UpdateRole();

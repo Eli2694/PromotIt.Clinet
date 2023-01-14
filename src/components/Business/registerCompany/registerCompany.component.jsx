@@ -9,8 +9,20 @@ export const RegisterCompany = () => {
   const [RegisteredCompany] = useState('true');
   const { user } = useAuth0();
   const [Email] = useState(user.email);
+  const [websiteError, setWebsiteError] = useState('');
+
+  function handleWebsiteChange(e) {
+    const website = e.target.value;
+    if (!website.startsWith('https://')) {
+      setWebsiteError("Please include 'https://' in the website address");
+    } else {
+      setWebsiteError('');
+      setCompanyWebsite(website.replace(/'/g, ''));
+    }
+  }
 
   const handleSubmit = (e) => {
+    // e.preventDefault() -  prevent refresh of the website
     e.preventDefault();
     const company = {
       companyName,
@@ -34,7 +46,8 @@ export const RegisterCompany = () => {
         <input
           type='text'
           required
-          onChange={(e) => setCompanyWebsite(e.target.value)}
+          onChange={handleWebsiteChange}
+          placeholder={websiteError ? websiteError : 'https://'}
         />
         <button>Add Business Company</button>
       </form>

@@ -100,7 +100,7 @@ export const UpdProduct = async (product) => {
   console.log(product);
 
   try {
-    await axios.post(`${businessApi}Update`, product);
+    await axios.put(`${businessApi}Update`, product);
     alert('product successfully updated - Business Services');
   } catch (error) {
     console.error(error);

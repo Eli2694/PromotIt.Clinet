@@ -85,7 +85,7 @@ export const updateUserPoints = async (Email, Points) => {
     return;
   }
   try {
-    await axios.post(`${activistApi}UPDATEPOINTS/${Email}/${Points}`);
+    await axios.put(`${activistApi}UPDATEPOINTS/${Email}/${Points}`);
   } catch (error) {
     console.log(error);
   }
@@ -102,7 +102,7 @@ export const updateTweetsAmountPerCampaign = async (
     return;
   }
   try {
-    await axios.post(
+    await axios.put(
       `${activistApi}UPDATETWEETSAMOUNT/${Email}/${tweets}/${campaignId}`
     );
   } catch (error) {
@@ -116,7 +116,7 @@ export const DecreaseActivistPointsAfterBuy = async (dropPoints, Email) => {
     return;
   }
   try {
-    await axios.post(`${activistApi}DROPOINTS/${Email}/${dropPoints}`);
+    await axios.put(`${activistApi}DROPOINTS/${Email}/${dropPoints}`);
   } catch (error) {
     console.log(error);
   }

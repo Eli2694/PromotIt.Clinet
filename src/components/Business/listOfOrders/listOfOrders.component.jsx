@@ -33,7 +33,6 @@ export const ListOfOrders = () => {
   if (role.find((role) => role.name === 'BusinessRepresentative')) {
     return (
       <>
-        <h1>List Of Orders</h1>
         <Table striped bordered hover>
           <thead>
             <tr>
