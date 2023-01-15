@@ -27,6 +27,7 @@ import { TwitterPoints } from './components/Activist/twitterPoints/twitterPoints
 import { RegisterCompany } from './components/Business/registerCompany/registerCompany.component';
 import { PurchaseWithPoints } from './components/Activist/purchaseWithPoints/purchaseWithPoints.component';
 import { UserReport } from './components/Owner/userReport/userReport.component';
+import { CampaignReport } from './components/Owner/campaignReport/campaignReport.component';
 
 function App() {
   const [role, setRole] = useState([]);
@@ -123,6 +124,10 @@ function App() {
                       <Route
                         path='/userReport'
                         element={<UserReport></UserReport>}
+                      ></Route>
+                      <Route
+                        path='/campaignReport'
+                        element={<CampaignReport></CampaignReport>}
                       ></Route>
                       <Route
                         path='*'

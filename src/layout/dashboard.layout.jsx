@@ -20,11 +20,16 @@ export const Dashboard = () => {
     try {
       let userId = user.sub;
       let Email = user.email;
+      //Get role from auth0 app that the website manager assign to the user
       let roleFromAuth0 = await getRoles(userId);
+
+      //Every new user starts with $0 in wallet
       await InitializeWallet(Email);
       let userMoney = await getUserMoney(Email);
       await setWallet(userMoney);
       setRole(roleFromAuth0);
+
+      //Every new user will be inserted into database
       InsertUserToDB();
     } catch (error) {
       console.error(error);
@@ -54,6 +59,9 @@ export const Dashboard = () => {
         </Link>
         <Link to='/userReport' className='link'>
           Users Report
+        </Link>
+        <Link to='/campaignReport' className='link'>
+          Campaign Report
         </Link>
         <Link
           onClick={() => logout({ returnTo: window.location.origin })}
