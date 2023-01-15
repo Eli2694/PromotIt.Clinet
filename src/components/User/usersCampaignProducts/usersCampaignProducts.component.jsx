@@ -7,6 +7,7 @@ import { ProductIdContext } from '../../../context/productID.context';
 import { RoleContext } from '../../../context/role.context';
 import { TwitterWalletContext } from '../../../context/twitterWallet';
 import { WalletContext } from '../../../context/wallet';
+import { DecreaseActivistPointsAfterBuy } from '../../../services/Activist.services';
 import {
   getBusinessCompanyName,
   getProductId,
@@ -54,6 +55,13 @@ export const UsersCampaignProducts = () => {
         companyName,
       },
     });
+  };
+
+  const handleActivistDonate = async (unitPrice) => {
+    let Email = user.email;
+    let dropPoints = parseInt(unitPrice);
+    // Decrease twitter user point after purchasing a product with points
+    await DecreaseActivistPointsAfterBuy(dropPoints, Email);
   };
 
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {
@@ -185,8 +193,12 @@ export const UsersCampaignProducts = () => {
                   )}
 
                   {unitsInStock > 0 &&
-                  parseFloat(unitPrice) <= parseFloat(points) ? (
-                    <Button className='btn' variant='success'>
+                  parseFloat(unitPrice) <= parseInt(points) ? (
+                    <Button
+                      className='btn'
+                      variant='success'
+                      onClick={() => handleActivistDonate(unitPrice)}
+                    >
                       Donate
                     </Button>
                   ) : (

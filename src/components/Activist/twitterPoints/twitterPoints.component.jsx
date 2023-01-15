@@ -27,11 +27,11 @@ export const TwitterPoints = () => {
   const [hashtag, setHashtag] = useState();
   const [website, setWebsite] = useState();
   const [campaigns, setCampaigns] = useState([]);
-  //const [countTweets, setCountTweets] = useState();
   const [buttonPress, setButtonPress] = useState(true);
   const { user } = useAuth0();
   const { role } = useContext(RoleContext);
 
+  // Update User Role in sql server from null to activist
   const UpdateRole = async () => {
     let userRole = role[0].name;
     let email = user.email;
@@ -43,20 +43,28 @@ export const TwitterPoints = () => {
     campaginHashtag,
     campaignWebsite
   ) => {
+    // Removes https:// from a website to improve display
     const urlObject = new URL(campaignWebsite);
     const cWebsite = urlObject.hostname;
+
+    // Update state of campaign to promote
     setCampaignId(CampaignId);
     setHashtag(campaginHashtag);
     setWebsite(cWebsite);
 
     let Email = user.email;
+    // Choose campaign to promote by pressing the button "Promote"
     await ActivistPromoteCampaign(CampaignId, Email);
   };
 
   const FullInfoAboutCampaigns = async () => {
+    // Get all campaigns that the user can promote
     let Campaigns = await getFullListOfCampaigns();
+
+    // Every Activist start with 0 points
     let Email = user.email;
     await InitiateActivistPoints(Email);
+
     let points = await getActivistPoints(Email);
     setPoints(points);
     setCampaigns(Campaigns);
@@ -95,7 +103,9 @@ export const TwitterPoints = () => {
     let PointsFromTweets = tweets.meta.result_count * 4;
     let resultCount = points + PointsFromTweets;
     let Email = user.email;
+    //Increase activist user point because of his promotion work
     await updateUserPoints(Email, PointsFromTweets);
+    //Update the amount of tweets in database to show promotion effort per campaign
     await updateTweetsAmountPerCampaign(
       tweets.meta.result_count,
       Email,
@@ -105,6 +115,9 @@ export const TwitterPoints = () => {
     setPoints(resultCount);
     //setButtonPress(true);
 
+    if (tweets.meta.result_count > 0) {
+      alert('The sum of the points increases');
+    }
     getUserTimelineForTweets();
   };
 
