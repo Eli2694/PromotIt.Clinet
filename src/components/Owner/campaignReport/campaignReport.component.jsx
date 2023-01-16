@@ -163,7 +163,7 @@ export const CampaignReport = () => {
                   <tr>
                     <th>Campaign Creation Date</th>
                     <th>Campaign Name</th>
-                    <th>Total Donation Amount</th>
+                    <th>Total Donation Amount In $</th>
                   </tr>
                 </thead>
                 <tbody>

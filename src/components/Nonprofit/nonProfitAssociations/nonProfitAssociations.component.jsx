@@ -11,7 +11,19 @@ export const NonProfitAssociations = () => {
   const { user } = useAuth0();
   const [FullName] = useState(user.name);
   const [Email] = useState(user.email);
+  const [websiteError, setWebsiteError] = useState('');
 
+  const handleWebsiteChange = (e) => {
+    const website = e.target.value;
+    if (!website.startsWith('https://')) {
+      setWebsiteError("Please include 'https://' in the website address");
+    } else {
+      setWebsiteError('');
+      setAssociationWebsite(website.replace(/'/g, ''));
+    }
+  };
+
+  //Register Nonprofit user Association
   const handleSubmit = (e) => {
     e.preventDefault();
     const association = {
@@ -44,9 +56,8 @@ export const NonProfitAssociations = () => {
         <input
           type='text'
           required
-          onChange={(e) =>
-            setAssociationWebsite(e.target.value.replace(/'/g, ''))
-          }
+          onChange={handleWebsiteChange}
+          placeholder={websiteError ? websiteError : 'https://'}
         />
         <button>Add Association</button>
       </form>
