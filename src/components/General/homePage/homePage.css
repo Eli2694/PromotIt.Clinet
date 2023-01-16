@@ -7,3 +7,19 @@ th {
 .table {
   border: 1px black solid;
 }
+
+.contact-container {
+  background-color: #3e4851;
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+  padding: 7px;
+}
+
+.contact-container h3 {
+  color: white;
+  text-decoration: underline;
+}
+
+.contact-container p {
+  color: white;
+}
