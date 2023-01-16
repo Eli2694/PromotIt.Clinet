@@ -62,11 +62,90 @@ export const UsersCampaignProducts = () => {
     let dropPoints = parseInt(unitPrice);
     // Decrease twitter user point after purchasing a product with points
     await DecreaseActivistPointsAfterBuy(dropPoints, Email);
+    alert('Your Points have been decreased');
   };
 
   if (role.find((role) => role.name === 'NonProfitRepresentative')) {
-    return (
-      <>
+    if (
+      productsList === null ||
+      productsList.length === 0 ||
+      productsList === undefined
+    ) {
+      return <h2>No Products</h2>;
+    } else {
+      return (
+        <>
+          <div className='card-list'>
+            {productsList &&
+              productsList.map((product) => {
+                let {
+                  productName,
+                  unitPrice,
+                  unitsInStock,
+                  CampaignId,
+                  imageURL,
+                } = product;
+                return (
+                  <Card className='card'>
+                    <Card.Img
+                      className='img'
+                      variant='top'
+                      src={imageURL}
+                      style={{
+                        maxWidth: '200px',
+                        maxHeight: '200px',
+                      }}
+                    />
+                    <Card.Body className='body'>
+                      <Card.Title className='title'>{productName}</Card.Title>
+                      <Card.Text className='text'>
+                        <p>
+                          Potential Donation:
+                          {(
+                            parseFloat(unitPrice) * parseInt(unitsInStock)
+                          ).toFixed(2)}
+                          $
+                        </p>
+                        <p>
+                          Product Price: {parseFloat(unitPrice).toFixed(2)}$
+                        </p>
+                        <p>Units In Stock: {unitsInStock}</p>
+                      </Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                      {unitsInStock > 0 &&
+                      parseFloat(unitPrice) <= parseFloat(wallet) ? (
+                        <Button
+                          className='btn'
+                          variant='primary'
+                          onClick={() =>
+                            handleBuyProduct(CampaignId, productName, unitPrice)
+                          }
+                        >
+                          Buy
+                        </Button>
+                      ) : (
+                        <Button className='btn' variant='primary' disabled>
+                          Buy
+                        </Button>
+                      )}
+                    </Card.Footer>
+                  </Card>
+                );
+              })}
+          </div>
+        </>
+      );
+    }
+  } else if (role.find((role) => role.name === 'SocialActivist')) {
+    if (
+      productsList === null ||
+      productsList.length === 0 ||
+      productsList === undefined
+    ) {
+      return <h2>No Products</h2>;
+    } else {
+      return (
         <div className='card-list'>
           {productsList &&
             productsList.map((product) => {
@@ -77,6 +156,7 @@ export const UsersCampaignProducts = () => {
                 CampaignId,
                 imageURL,
               } = product;
+
               return (
                 <Card className='card'>
                   <Card.Img
@@ -91,13 +171,105 @@ export const UsersCampaignProducts = () => {
                   <Card.Body className='body'>
                     <Card.Title className='title'>{productName}</Card.Title>
                     <Card.Text className='text'>
-                      <p>
-                        Potential Donation:
-                        {(
-                          parseFloat(unitPrice) * parseInt(unitsInStock)
-                        ).toFixed(2)}
-                        $
-                      </p>
+                      <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
+                      <p>Units In Stock: {unitsInStock}</p>
+                      <p>Campaign ID For Donation: {CampaignId}</p>
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    {unitsInStock > 0 &&
+                    parseFloat(unitPrice) <= parseFloat(wallet) ? (
+                      <Button
+                        className='btn'
+                        variant='primary'
+                        onClick={() =>
+                          handleBuyProduct(CampaignId, productName, unitPrice)
+                        }
+                      >
+                        Buy
+                      </Button>
+                    ) : (
+                      <Button className='btn' variant='primary' disabled>
+                        Buy
+                      </Button>
+                    )}
+
+                    {unitsInStock > 0 &&
+                    parseInt(unitPrice) <= parseInt(points) ? (
+                      <Button
+                        className='btn'
+                        variant='warning'
+                        onClick={() =>
+                          handleBuyProductWithPoints(
+                            CampaignId,
+                            productName,
+                            unitPrice
+                          )
+                        }
+                      >
+                        Buy With Points
+                      </Button>
+                    ) : (
+                      <Button className='btn' variant='Secondary' disabled>
+                        Buy With Points
+                      </Button>
+                    )}
+
+                    {unitsInStock > 0 &&
+                    parseFloat(unitPrice) <= parseInt(points) ? (
+                      <Button
+                        className='btn'
+                        variant='success'
+                        onClick={() => handleActivistDonate(unitPrice)}
+                      >
+                        Donate
+                      </Button>
+                    ) : (
+                      <Button className='btn' variant='success' disabled>
+                        Donate
+                      </Button>
+                    )}
+                  </Card.Footer>
+                </Card>
+              );
+            })}
+        </div>
+      );
+    }
+  } else {
+    if (
+      productsList === null ||
+      productsList.length === 0 ||
+      productsList === undefined
+    ) {
+      return <h2>No Products</h2>;
+    } else {
+      return (
+        <div className='card-list'>
+          {productsList &&
+            productsList.map((product) => {
+              let {
+                productName,
+                unitPrice,
+                unitsInStock,
+                CampaignId,
+                imageURL,
+              } = product;
+
+              return (
+                <Card className='card'>
+                  <Card.Img
+                    className='img'
+                    variant='top'
+                    src={imageURL}
+                    style={{
+                      maxWidth: '200px',
+                      maxHeight: '200px',
+                    }}
+                  />
+                  <Card.Body className='body'>
+                    <Card.Title className='title'>{productName}</Card.Title>
+                    <Card.Text className='text'>
                       <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
                       <p>Units In Stock: {unitsInStock}</p>
                     </Card.Text>
@@ -124,142 +296,7 @@ export const UsersCampaignProducts = () => {
               );
             })}
         </div>
-      </>
-    );
-  } else if (role.find((role) => role.name === 'SocialActivist')) {
-    return (
-      <div className='card-list'>
-        {productsList &&
-          productsList.map((product) => {
-            let { productName, unitPrice, unitsInStock, CampaignId, imageURL } =
-              product;
-
-            return (
-              <Card className='card'>
-                <Card.Img
-                  className='img'
-                  variant='top'
-                  src={imageURL}
-                  style={{
-                    maxWidth: '200px',
-                    maxHeight: '200px',
-                  }}
-                />
-                <Card.Body className='body'>
-                  <Card.Title className='title'>{productName}</Card.Title>
-                  <Card.Text className='text'>
-                    <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
-                    <p>Units In Stock: {unitsInStock}</p>
-                    <p>Campaign ID For Donation: {CampaignId}</p>
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  {unitsInStock > 0 &&
-                  parseFloat(unitPrice) <= parseFloat(wallet) ? (
-                    <Button
-                      className='btn'
-                      variant='primary'
-                      onClick={() =>
-                        handleBuyProduct(CampaignId, productName, unitPrice)
-                      }
-                    >
-                      Buy
-                    </Button>
-                  ) : (
-                    <Button className='btn' variant='primary' disabled>
-                      Buy
-                    </Button>
-                  )}
-
-                  {unitsInStock > 0 &&
-                  parseInt(unitPrice) <= parseInt(points) ? (
-                    <Button
-                      className='btn'
-                      variant='warning'
-                      onClick={() =>
-                        handleBuyProductWithPoints(
-                          CampaignId,
-                          productName,
-                          unitPrice
-                        )
-                      }
-                    >
-                      Buy With Points
-                    </Button>
-                  ) : (
-                    <Button className='btn' variant='Secondary' disabled>
-                      Buy With Points
-                    </Button>
-                  )}
-
-                  {unitsInStock > 0 &&
-                  parseFloat(unitPrice) <= parseInt(points) ? (
-                    <Button
-                      className='btn'
-                      variant='success'
-                      onClick={() => handleActivistDonate(unitPrice)}
-                    >
-                      Donate
-                    </Button>
-                  ) : (
-                    <Button className='btn' variant='success' disabled>
-                      Donate
-                    </Button>
-                  )}
-                </Card.Footer>
-              </Card>
-            );
-          })}
-      </div>
-    );
-  } else {
-    return (
-      <div className='card-list'>
-        {productsList &&
-          productsList.map((product) => {
-            let { productName, unitPrice, unitsInStock, CampaignId, imageURL } =
-              product;
-
-            return (
-              <Card className='card'>
-                <Card.Img
-                  className='img'
-                  variant='top'
-                  src={imageURL}
-                  style={{
-                    maxWidth: '200px',
-                    maxHeight: '200px',
-                  }}
-                />
-                <Card.Body className='body'>
-                  <Card.Title className='title'>{productName}</Card.Title>
-                  <Card.Text className='text'>
-                    <p>Product Price: {parseFloat(unitPrice).toFixed(2)}$</p>
-                    <p>Units In Stock: {unitsInStock}</p>
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  {unitsInStock > 0 &&
-                  parseFloat(unitPrice) <= parseFloat(wallet) ? (
-                    <Button
-                      className='btn'
-                      variant='primary'
-                      onClick={() =>
-                        handleBuyProduct(CampaignId, productName, unitPrice)
-                      }
-                    >
-                      Buy
-                    </Button>
-                  ) : (
-                    <Button className='btn' variant='primary' disabled>
-                      Buy
-                    </Button>
-                  )}
-                </Card.Footer>
-              </Card>
-            );
-          })}
-      </div>
-    );
+      );
+    }
   }
 };
