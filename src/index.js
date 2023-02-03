@@ -8,15 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Auth0Provider
-      domain='dev-b5tr58oncnfs4qwo.us.auth0.com'
-      clientId='uXzYjcwOnrpfBMwAyu7TrabaEuYzbOOY'
-      redirectUri={window.location.origin}
-    >
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Auth0Provider>
-  </React.StrictMode>
+  <Auth0Provider
+    domain='dev-b5tr58oncnfs4qwo.us.auth0.com'
+    clientId='uXzYjcwOnrpfBMwAyu7TrabaEuYzbOOY'
+    redirectUri={window.location.origin}
+  >
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Auth0Provider>
 );

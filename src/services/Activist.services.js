@@ -54,13 +54,21 @@ export const getUserTweets = async (since, username, hashtag, website) => {
   }
 };
 
-export const ActivistPromoteCampaign = async (CampaignId, Email) => {
-  if (CampaignId === undefined || Email === undefined) {
-    alert('ActivistPromoteCampaign error');
+export const ActivistPromoteCampaign = async (username, CampaignId, Email) => {
+  if (
+    CampaignId === undefined ||
+    Email === undefined ||
+    username === undefined
+  ) {
+    alert(
+      `error: username=${username}, email=${Email},CampaignId=${CampaignId}`
+    );
     return;
   }
   try {
-    await axios.post(`${activistApi}INITIATECAMPAIGN/${CampaignId}/${Email}`);
+    await axios.post(
+      `${activistApi}INITIATECAMPAIGN/${CampaignId}/${Email}/${username}`
+    );
   } catch (error) {
     console.log(error);
   }
