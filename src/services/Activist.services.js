@@ -31,29 +31,6 @@ export const getActivistPoints = async (Email) => {
   }
 };
 
-export const getUserTweets = async (since, username, hashtag, website) => {
-  if (
-    username === undefined ||
-    since === undefined ||
-    website === undefined ||
-    since === undefined
-  ) {
-    alert('getUserTweets error');
-    console.log(username, since);
-    return;
-  }
-  try {
-    let results = await fetch(
-      `${activistApi}USERTWEETS/${since}/${username}/${hashtag}/${website}`
-    );
-    let tweets = await results.json();
-    console.log(tweets);
-    return tweets;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const ActivistPromoteCampaign = async (username, CampaignId, Email) => {
   if (
     CampaignId === undefined ||
@@ -82,37 +59,6 @@ export const InitiateActivistPoints = async (Email) => {
   }
   try {
     await axios.post(`${activistApi}INITIATEPOINTS/${Email}`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateUserPoints = async (Email, Points) => {
-  if (Email === undefined || Points === undefined) {
-    alert('updateUserPoints error');
-    return;
-  }
-  try {
-    await axios.put(`${activistApi}UPDATEPOINTS/${Email}/${Points}`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateTweetsAmountPerCampaign = async (
-  tweets,
-  Email,
-  campaignId
-) => {
-  console.log(tweets, Email, campaignId);
-  if (Email === undefined || tweets === undefined || campaignId === undefined) {
-    alert('updateTweetsAmountPerCampaign error');
-    return;
-  }
-  try {
-    await axios.put(
-      `${activistApi}UPDATETWEETSAMOUNT/${Email}/${tweets}/${campaignId}`
-    );
   } catch (error) {
     console.log(error);
   }
