@@ -1,0 +1,80 @@
+.report {
+  text-align: center;
+}
+
+.report-header {
+  background-color: #292f35;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.report h3 {
+  color: white;
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 999px;
+  border-color: #aab8c2;
+  border-width: 2px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.content {
+  max-width: 1000px;
+
+  margin: auto;
+}
+
+.Application-Statistics {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.Application-Statistics-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.31);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  width: 200px;
+  height: 140px;
+}
+
+.Statistics-text {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.Statistics-Num {
+  font-size: 38px;
+  color: rgb(0, 119, 255);
+  margin: 0;
+  text-align: center;
+}
+
+.date label {
+  color: white;
+  font-size: 1.5rem;
+  margin: 5px;
+  margin-right: 10px;
+}

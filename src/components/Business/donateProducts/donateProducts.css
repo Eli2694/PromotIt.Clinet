@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  font-family: 'Quicksand';
+  color: rgb(231, 172, 89);
+}
+
+/* create new blog form */
+.donate {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.donate label {
+  text-align: left;
+  display: block;
+}
+
+.donate h2 {
+  font-size: 20px;
+  text-decoration: underline;
+  color: rgb(231, 172, 89);
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.donate input {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid rgb(231, 172, 89);
+  box-sizing: border-box;
+  display: block;
+}
+
+.donate button {
+  background: rgb(231, 172, 89);
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+}

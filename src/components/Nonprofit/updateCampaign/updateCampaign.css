@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  font-family: 'Quicksand';
+  color: rgb(11, 23, 13);
+}
+
+/* create new blog form */
+.campaginUpdate {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.campaginUpdate label {
+  text-align: left;
+  display: block;
+}
+
+.campaginUpdate h2 {
+  font-size: 20px;
+  text-decoration: underline;
+  color: rgb(76, 182, 221);
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.campaginUpdate input {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid rgb(76, 182, 221);
+  box-sizing: border-box;
+  display: block;
+}
+
+.campaginUpdate button {
+  background: rgb(76, 182, 221);
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.campaign-info {
+  margin-left: 30px;
+  margin-top: 10px;
+  height: 20px;
+}

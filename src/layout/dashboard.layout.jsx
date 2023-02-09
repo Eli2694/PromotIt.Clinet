@@ -1,64 +1,169 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useEffect, useState } from 'react';
-import { getRoles } from '../services/Auth0Roles';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { RoleContext } from '../context/role.context';
+import { WalletContext } from '../context/wallet';
+import { getRoles } from '../services/Auth0Roles.services';
+import {
+  checkIfUserExistsInDB,
+  getUserMoney,
+  InitializeWallet,
+} from '../services/Users.services';
+import './dashboard.css';
 
 export const Dashboard = () => {
   const { logout, user } = useAuth0();
-  const [role, setRole] = useState([]);
+  const { role, setRole } = useContext(RoleContext);
+  const { setWallet } = useContext(WalletContext);
 
   const handleRole = async () => {
     try {
       let userId = user.sub;
+      let Email = user.email;
+      //Get role from auth0 app that the website manager assign to the user
       let roleFromAuth0 = await getRoles(userId);
+
+      //Every new user starts with $0 in wallet
+      await InitializeWallet(Email);
+      let userMoney = await getUserMoney(Email);
+      await setWallet(userMoney);
       setRole(roleFromAuth0);
-      console.log(role.name);
+
+      //Every new user will be inserted into database
+      InsertUserToDB();
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const InsertUserToDB = async () => {
+    let logInUser = {
+      FullName: user.name,
+      Email: user.email,
+    };
+    await checkIfUserExistsInDB(logInUser);
   };
 
   useEffect(() => {
     handleRole();
   }, []);
 
-  if (!role) {
-    return <h1>Loading...</h1>;
-  }
-
-  if (role.name === 'Owner') {
+  if (role.find((role) => role.name === 'Owner')) {
     return (
-      <>
-        <h1>Owner</h1>
-        <button onClick={logout}>Logout</button>
-      </>
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/userReport' className='link'>
+          Users Report
+        </Link>
+        <Link to='/campaignReport' className='link'>
+          Campaign Report
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
     );
-  } else if (role.name === 'BusinessCompany') {
+  } else if (role.find((role) => role.name === 'BusinessRepresentative')) {
     return (
-      <>
-        <h1>BusinessCompany</h1>
-        <button onClick={logout}>Logout</button>
-      </>
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/registerCompany' className='link'>
+          Register Company
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/AllCampaignsForBusiness' className='link'>
+          List Of Campaigns
+        </Link>
+        <Link to='/listOfOrders' className='link'>
+          List Of Orders To Confirm
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
     );
-  } else if (role.name === 'Non-profit') {
+  } else if (role.find((role) => role.name === 'NonProfitRepresentative')) {
     return (
-      <>
-        <h1>Non-profit</h1>
-        <button onClick={logout}>Logout</button>
-      </>
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/association' className='link'>
+          Register Association
+        </Link>
+        <Link to='/campaignRegistration' className='link'>
+          Register Campaign
+        </Link>
+        <Link to='/personalCampaigns' className='link'>
+          Personal Campaigns
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
     );
-  } else if (role.name === 'Social-Activist') {
+  } else if (role.find((role) => role.name === 'SocialActivist')) {
     return (
-      <>
-        <h1>Social-Activist</h1>
-        <button onClick={logout}>Logout</button>
-      </>
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link to='/pointes' className='link'>
+          Pointes
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
     );
   } else {
     return (
-      <>
-        <h1>User</h1>
-        <button onClick={logout}>Logout</button>
-      </>
+      <div className='dashboard'>
+        <Link to='/' className='link'>
+          Home
+        </Link>
+        <Link to='/wallet' className='link'>
+          Wallet
+        </Link>
+        <Link
+          onClick={() => logout({ returnTo: window.location.origin })}
+          to='/'
+          className='link'
+        >
+          Logout
+        </Link>
+      </div>
     );
   }
 };

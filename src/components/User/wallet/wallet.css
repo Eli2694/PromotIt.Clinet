@@ -1,0 +1,16 @@
+.image {
+  width: 300px;
+  margin-top: 20px;
+}
+
+* {
+  margin: 0;
+  font-family: 'Quicksand';
+  color: #333;
+  font-weight: bold;
+}
+
+.productUpdate .money-title {
+  color: aliceblue;
+  font-size: 2rem;
+}

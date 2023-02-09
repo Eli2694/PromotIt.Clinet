@@ -1,0 +1,33 @@
+.card {
+  width: 20vw;
+  border-radius: 15px;
+  border: 2px whitesmoke solid;
+}
+
+.title {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.text {
+  background-color: ghostwhite;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.img {
+  align-self: center;
+}
+
+.none {
+  color: white;
+}

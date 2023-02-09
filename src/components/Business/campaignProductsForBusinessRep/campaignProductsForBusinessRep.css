@@ -1,0 +1,13 @@
+.btn {
+  margin: 5px;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 18rem;
+  margin: 1rem;
+}
